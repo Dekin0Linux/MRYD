@@ -43,18 +43,18 @@ const newSeat = async(req,res)=>{
     
 }
 
-const  searchBus = async(req,res)=>{
+const searchBus = async(req,res)=>{
     const {depature,arrival,dep_date} = req.query
     try{
         const buses = await BusModel.find({
             depature_loc : depature,
             arrival_loc : arrival,
             depature_date : dep_date
-        })
-        if(buses == [] ){
+        }).populate('bus_name',['company_name','logo'])
+        if(!buses){
             return res.status(500).json({msg:"Bus not found"})
         }
-        res.json(buses)
+        res.send(buses)
     }catch(err){
         res.json({msg:err.message})
     }

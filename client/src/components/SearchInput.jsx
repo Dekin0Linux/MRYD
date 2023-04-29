@@ -6,8 +6,8 @@ import { setSearch } from '../states/searchReducer/reducer';
 import * as Yup from 'yup'
 
 function SearchInput() {
-  const fromCities = ['Accra(ACC)','Kumasi(KSI)', 'Tamale(TML)']
-  const toCities = ['Accra(ACC)','Kumasi(KSI)', 'Tamale(TML)']
+  const fromCities = ['accra','kumasi', 'tamale','sunyani']
+  const toCities = ['accra','Kumasi', 'tamale','sunyani']
 
   // const search = useSelector(state=>state.search)
   const dispatch = useDispatch()
@@ -17,16 +17,17 @@ function SearchInput() {
   // formik
   const formik = useFormik({
     initialValues:{
-      from:'',
+      from: '',
       to:'',
       date : '',
-      persons : Number
+      persons : 1
     },
+
     validationSchema: Yup.object({
-      from:Yup.string().required('This field is required'),
-      to:Yup.string().required('This field is required'),
-      date:Yup.string().required('This field is required'),
-      persons:Yup.number().required('This field is required'),
+      from :Yup.string().required("This field is required"),
+      to : Yup.string().required("This field is required"),
+      date:Yup.string().required("This field is required"),
+      persons:Yup.number().required("This field is required"),
     }),
 
     onSubmit:(values)=>{
@@ -53,7 +54,7 @@ function SearchInput() {
                     <option >From Station</option>
                     {
                       fromCities.map((city,index) => (
-                        <option value={city} key={index}>{city}</option>
+                        <option value={city} key={index} className='capitalize '>{city}</option>
                       ))
                     }
                 </select>
@@ -73,7 +74,7 @@ function SearchInput() {
                     <option>To Station</option>
                     {
                       toCities.map((city,index) => (
-                        <option value={city} key={index}>{city}</option>
+                        <option value={city} key={index} className='capitalize '>{city}</option>
                       ))
                     }
                 </select>

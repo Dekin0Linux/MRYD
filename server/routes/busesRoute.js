@@ -21,7 +21,7 @@ router.get('/search',searchBus)
 router.get('/:id',getSingleBus)
 //end of getting single bus
 
-//getting a single bus /bus/123456
+//getting a update bus seats /bus/123456
 router.post('/seats/:id',newSeat)
 //end of getting single bus
 

@@ -13,7 +13,7 @@ const {
 
 const storage = multer.diskStorage({
     destination : (req,file,cb)=>{
-        cb(null , './images')
+        cb(null , './public/images')
     },
     filename : (req,file,cb)=>{
         const file_name = Date.now() +file.originalname
@@ -27,7 +27,6 @@ const uploadFile = multer({
         const emailExists = await companyModel.findOne({ email: req.body.email });
         if (emailExists) {
           return cb(new Error('Email already exists.'));
-            
         }
         cb(null, true);
       }

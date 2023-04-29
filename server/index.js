@@ -1,6 +1,8 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
+const cors = require('cors')
+const path =require('path')
 
 //Routes
 const busesRoutes = require('./routes/busesRoute')
@@ -15,7 +17,13 @@ const app = express()
 
 //middlewares
 app.use(express.json())
-//session middleware
+// Serve static files from the public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve static files from the client folder
+app.use(express.static(path.join(__dirname, 'client')));
+//cors middleware
+app.use(cors())
 
 
 //MONGODB CONNECTION

@@ -10,8 +10,8 @@ export const PriceBar = ({booking,persons})=>{
   return(
         <div className='flex justify-between p-5 mx-2 bg-yellow-500 shadow rounded'>
           <div>
-              <p className='font-semibold text-brown-600'>{booking && booking[0].from} - {booking && booking[0].to}</p>                                
-              <p>Date | {booking && booking[0].from}</p>
+              <p className='font-semibold text-brown-600'>{booking && booking[0].depature_loc} - {booking && booking[0].arrival_loc}</p>                                
+              <p>Date | {booking && booking[0].depature_date}</p>
           </div>
           <div>
           <p>TOTAL PRICE</p>
@@ -33,7 +33,7 @@ function PassengerDetails() {
   const renderForm= ()=>{
     const forms = []
     for(let i = 0; i < search.persons ; i++){
-      forms.push(<PassengerForm num={i}/>)
+      forms.push(<PassengerForm num={i} key={i}/>)
     }
     return forms
   }
@@ -49,6 +49,7 @@ function PassengerDetails() {
         <form className='md:px-10 px-4'>
           {
             renderForm()
+            
           }
           
           <button type='submit' className='bg-green-400 w-full md:w-60 py-4 rounded-lg text-white font-semibold' onClick={()=>navigate('/seat')}>Continue</button>

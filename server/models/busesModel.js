@@ -3,6 +3,7 @@
  //creating the buses schema
  const busSchema = mongoose.Schema({
     bus_name :{type: mongoose.Schema.Types.ObjectId ,ref:'company', required : true},
+   //  bus_logo : {type: mongoose.Schema.Types.ObjectId ,ref:'company', required : true},
     bus_number : {type:String,required:true},
     bus_type : {type:String,required:true},
     depature_loc : {type:String,required:true},

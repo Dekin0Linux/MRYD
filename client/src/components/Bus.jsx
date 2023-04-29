@@ -6,7 +6,7 @@ import { addToCart } from '../states/cart/cartReducer'
 import { useNavigate } from 'react-router-dom'
 
 function Bus({bus,index}) {
-    const busDate = new Date(bus.date)
+    const busDate = new Date(bus.depature_date)
     const booking = useSelector(state=>state.booking.book)
     const navigate = useNavigate()
 
@@ -20,31 +20,31 @@ function Bus({bus,index}) {
     }
 
   return (
-    <div className='md:flex justify-between bg-white p-2 shadow-lg md:my-8 my-4 rounded-lg mx-2 md:mx-0'>
+    <div className='md:flex justify-between bg-white p-5 shadow-lg md:my-8 my-4 rounded-lg mx-2 md:mx-0'>
         <div className='flex-1 '>
             <div className='md:flex gap-5'>
                 <div className='w-32'>
-                    <img src={bus.logo} alt={bus.id} className='w-full'/>
-                    
+                    <img src={`http://localhost:4000/images/${bus.bus_name.logo}`} alt={bus.id} className='w-full'/>
                 </div>
                 <div >
-                    <p className='font-bold text-2xl text-blue-600 mb-5'>{bus.name}</p>
+                    <p className='font-bold text-2xl text-blue-600 mb-5'>{bus.bus_name ? bus.bus_name.company_name : ''} | {bus.station_name}</p>
+                    {/* {console.log(bus.bus_name.logo)} */}
                     <div className='flex items-center gap-5'>
                         <span className='inline-flex items-center bg-orange-400 gap-2 px-2 rounded-lg text-white text-semibold'><FaStar color='white'/> {bus.rating}</span>
-                        <span className='inline-flex items-center' >{bus.busType}  |</span>
-                        <span className='inline-flex items-center gap-2 font-bold text-red-700'><MdOutlineAirlineSeatReclineExtra/>{bus.seatsLeft} seats left</span>
+                        <span className='inline-flex items-center' >{bus.bus_type}  |</span>
+                        <span className='inline-flex items-center gap-2 font-bold text-red-700'><MdOutlineAirlineSeatReclineExtra/>{bus.available_seats} seats left</span>
                     </div>
-                    <small>Bus Number</small>
+                    <small className='font-bold'>Bus Number : {bus.bus_number}</small>
                 </div>
             </div>
             <div className='flex gap-5 md:my-6 my-4'>
                 <div>
                     <small>Depature</small>
-                    <p className="font-bold">{bus.depTime}</p>
+                    <p className="font-bold">{bus.depature_time}</p>
                 </div>
                 <div>
                     <small>Arrival</small>
-                    <p className="font-bold">{bus.Arival}</p>
+                    <p className="font-bold">{bus.arrival_time}</p>
                 </div>
 
                 <div>
@@ -53,7 +53,7 @@ function Bus({bus,index}) {
                 </div>
                 <div>
                     <small>Amenities</small>
-                    <p className="font-semibold text-blue-500">{bus.aminities.map((item,index)=>(<small className='mr-2' key={index}>{item} </small>))}</p>
+                    <p className="font-semibold text-blue-500">{bus.amenities && bus.amenities.map((item,index)=>(<small className='mr-2' key={index}>{item} </small>))}</p>
                 </div>
             </div>
         </div>
