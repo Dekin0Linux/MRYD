@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Buses from './pages/Buses'
 import PassengerDetails from './pages/PassengerDetails'
 import SeatSelect from './pages/SeatSelect'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import BookBusPage from './pages/BookBusPage'
 
 
 function App() {
@@ -17,9 +20,12 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path='/' element={<Homepage/>}/>
+          <Route path='/login' element={<Login/>}/>
           <Route path='/buses' element={<Buses/>}/>
           <Route path='/passenger' element={<PassengerDetails/>} />
           <Route path='seat' element={<SeatSelect/>} />
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/mybooking' element={<BookBusPage/>}/>
         </Routes>
       </Router>
     

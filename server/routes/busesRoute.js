@@ -22,7 +22,7 @@ router.get('/:id',getSingleBus)
 //end of getting single bus
 
 //getting a update bus seats /bus/123456
-router.post('/seats/:id',newSeat)
+router.patch('/updateSeats/:id',newSeat)
 //end of getting single bus
 
 

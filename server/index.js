@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path =require('path')
+const cookieParser = require('cookie-parser')
 
 //Routes
 const busesRoutes = require('./routes/busesRoute')
@@ -23,14 +24,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Serve static files from the client folder
 app.use(express.static(path.join(__dirname, 'client')));
 //cors middleware
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173', // replace with your frontend URL
+    credentials: true, // enable cookies
+}))
+//cookie parser
+app.use(cookieParser())
+
 
 
 //MONGODB CONNECTION
 mongoose.connect(process.env.DB_URL ,{useNewUrlParser:true,dbName: 'myryd'})
 .then(()=>{
     app.listen(process.env.PORT,()=>{
-        console.log("server running")
+        console.log("server running ")
     })
 }).catch(err=>{
     console.log(err.message)

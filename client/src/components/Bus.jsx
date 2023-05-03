@@ -6,14 +6,27 @@ import { addToCart } from '../states/cart/cartReducer'
 import { useNavigate } from 'react-router-dom'
 
 function Bus({bus,index}) {
-    const busDate = new Date(bus.depature_date)
     const booking = useSelector(state=>state.booking.book)
+    const search = useSelector(state=>state.search.data) //users search data
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     const enterBooking = ()=>{
-        dispatch(addToCart(bus))
+        const newBooking = {
+            ...booking,
+            busId: bus._id,
+            depature : bus.depature_loc,
+            arrival_loc:bus.arrival_loc,
+            fare : bus.fare * search.persons,
+            depature_date : search.date,
+            depature_time : bus.depature_time,
+            totalSeats : bus.total_seats,
+            station_name : bus.station_name,
+            seats_perRow : bus.seats_perRow,
+            persons : search.persons
+        }
+        dispatch(addToCart(newBooking))
         if(booking){
             navigate('/passenger')
         }
@@ -49,7 +62,7 @@ function Bus({bus,index}) {
 
                 <div>
                     <small>Date</small>
-                    <p className="font-bold text-green-600">{busDate.toDateString()}</p>
+                    <p className="font-bold text-green-600">{search.date}</p>
                 </div>
                 <div>
                     <small>Amenities</small>

@@ -26,10 +26,10 @@ const uploadFile = multer({
         // Check if email already exists
         const emailExists = await companyModel.findOne({ email: req.body.email });
         if (emailExists) {
-          return cb(new Error('Email already exists.'));
+            return cb(new Error('Email already exists.'));
         }
         cb(null, true);
-      }
+    }
 })
 
 //getting all bus /bus

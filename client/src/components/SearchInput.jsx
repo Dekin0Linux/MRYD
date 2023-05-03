@@ -16,6 +16,7 @@ function SearchInput() {
 
   // formik
   const formik = useFormik({
+    //field states
     initialValues:{
       from: '',
       to:'',

@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    book:[]
+    // book:[]
+    book : {}
 }
 
 export const cartSlice = createSlice({
@@ -11,7 +12,8 @@ export const cartSlice = createSlice({
 
     reducers:{
         addToCart : (state,action)=>{
-            state.book.push(action.payload)
+            // state.book.push(action.payload)
+            state.book = action.payload
             // if(state.book.length > 0){
             //     state.book[0] = action.payload
             // }else{

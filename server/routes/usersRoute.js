@@ -7,7 +7,10 @@ const {
     resetPassword,
     updateUser,
     deleteUser,
+    logOut
 } = require('../controllers/usersController')
+
+// const {requireAuth} = require('../middleware/authMiddleware')
 
 //getting all users
 router.get('/',getAllusers)
@@ -22,7 +25,6 @@ router.post('/register', createNewUser)
 router.post('/login',loginUser)
 //end of user login
 
-
 //reset password
 router.put('/reset-password',resetPassword)
 
@@ -32,9 +34,10 @@ router.patch('/:id', updateUser)
 
 //delete a user
 router.delete('/:id',deleteUser)
+
+
 //logout
-
-
+router.post('/logout', logOut)
 
 
 

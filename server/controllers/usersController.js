@@ -1,5 +1,11 @@
 const userModel = require('../models/usermodel')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
+//CREATING OUR JWT FUNCTION
+const token = (id)=>{
+    return jwt.sign({id:id},process.env.SECRET,{expiresIn: 3*24*60*60})
+}
 
 const getAllusers = async (req,res)=>{
     const allusers = await userModel.find()
@@ -11,7 +17,7 @@ const getSingleUser = async(req,res)=>{
     try{
         const user = await userModel.findById(id)
         if(!user){
-            return res.status(500).json({msg:"User Not Found"})
+            return res.status(500).json({msg:"Ivalid Email"})
         }
         res.json(user)
     }catch(err){
@@ -19,11 +25,11 @@ const getSingleUser = async(req,res)=>{
     }  
 }
 
-
+//REGISTERIN USER
 const createNewUser = async (req,res)=>{
     try{
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(req.body.password,salt)
+        const salt = await bcrypt.genSalt(10) //ENCYPRTION SALT
+        const hashedPassword = await bcrypt.hash(req.body.password,salt) //HASHING PSWD
         const user = await new userModel({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -36,10 +42,12 @@ const createNewUser = async (req,res)=>{
             return res.status(500).res.json({msg:"User not Created"})
         }
         await user.save().then((doc)=>{
-            res.json(doc).status(200)
+            const userToken = token(doc._id) //setting jwt token id
+            res.cookie('login', userToken, {httpOnly:true, maxAge: 3*24*60*60})
+            res.json(doc).status(200) 
         })
     }catch(err){
-        res.status(404).json({msg:"This email is already Registed"})
+        res.status(404).json({msg:'User Exist Already'})
     }
 }
 
@@ -52,12 +60,16 @@ const loginUser = async(req,res)=>{
     if (!user) {
         return res.status(404).json({ message: 'User not found' });
     }
-    // //verify user password
+    //verify user password
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-        return res.status(200).json({ message: 'Login successful'});        
+        const userToken = token(user._id) //setting jwt token id
+        res.cookie('login',userToken,{httpOnly:false, maxAge: 3*24*60*60})
+        return res.status(200).json(user);        
+    }else{
+        return res.status(401).json({ message: 'Incorrect password' });
     }
-    return res.status(401).json({ message: 'Incorrect password' });
+   
 }
 
 
@@ -115,6 +127,12 @@ const deleteUser = async(req,res)=>{
 }
 
 
+const logOut = (req,res)=>{
+    res.cookie('login','', {maxAge:1})
+    res.redirect('/user')
+    res.json({msg:"Logged out successful"})
+}
+
 
 
 module.exports = {
@@ -125,6 +143,7 @@ module.exports = {
     resetPassword,
     updateUser,
     deleteUser,
+    logOut
 }
 
 

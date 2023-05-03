@@ -27,16 +27,17 @@ const getSingleBus = async(req,res)=>{
     }
 }
 
+
 const newSeat = async(req,res)=>{
     try{
     const {id} = req.params
-    const bookedSeat = req.body.seat
-    const currentSeat = req.body.currentSeat
-    await BusModel.findByIdAndUpdate(id, { $push: { booked_seats: bookedSeat },$set:{available_seats : currentSeat} }, { new: true })
+    const bookedSeat = req.body.seat //array of user selected seats
+    const currentSeat = req.body.currentSeat //setting updated seats value to this(prevSeat - current seat)
+    await BusModel.findByIdAndUpdate(id, { $push: { booked_seats: {$each : bookedSeat } },$set:{available_seats : currentSeat} }, { new: true })
         .then(() => {
-        res.json({msg:"seat updated"});
+        res.json({msg:"Seat updated"});
         })
-        .catch(err => next(err));
+        .catch(err => res.json({msg:err.message}));
     }catch(err){
         res.json({msg:err.message})
     }

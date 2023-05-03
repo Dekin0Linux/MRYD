@@ -7,11 +7,12 @@ import axios from 'axios'
 // import { setSearch } from '../states/searchReducer/reducer';
 
 function Buses() {
-  const [buses,setBuses] = useState([])
+  const [buses,setBuses] = useState([]) // array to keep available buses
     
   const search = useSelector(state=>state.search.data)
   const navigate = useNavigate()
 
+  //fucntion to run out search 
   const userSearch = async ()=> {
       await axios.get('http://localhost:4000/bus/search',
         {params:{
@@ -27,12 +28,11 @@ function Buses() {
 
   useEffect(()=>{
     userSearch()
-
     //checking if form is empty is true redirect user to homepage
     const values = Object.values(search)
     const isEmpty = values.every(value => !value);
     if(isEmpty){
-      navigate('/')
+      navigate('/home')
     }
   },[])
   
@@ -55,10 +55,11 @@ function Buses() {
         {
           buses.length > 0  ? buses.map((bus,index)=>(
             <Bus key={index} bus={bus}/>
-
-          )):<p>No Buses Found</p>
+          )):(<div className='text-center'>
+              <p className='text-center font-bold p-5 text-3xl text-red-600'>Sorry No Buses Found !!!</p>
+              <button className='px-3 py-1 bg-blue-700 text-white rounded' onClick={()=>navigate('/home')}>Search Again</button>
+            </div>)
         }
-        {console.log(buses)}
       </div>
     </div>
 

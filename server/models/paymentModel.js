@@ -1,0 +1,16 @@
+const mongoose = require('mongoose')
+
+//creating the buses schema
+const PaymentSchema = mongoose.Schema({
+    customer_id :{type: mongoose.Schema.Types.ObjectId, ref:'user'}, //ref:'user' this is the collection
+    amount : {type: Number , require:true},
+    paymentStatus: {type:String , required:true },
+    refNumber : {type:String , required : true},
+    date : {type:String , required : true},
+
+},{timestamps:true})
+
+//creating a booking model 
+const PaymentModel = mongoose.model('booking',PaymentSchema)
+
+module.exports = PaymentModel;
