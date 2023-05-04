@@ -24,6 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Serve static files from the client folder
 app.use(express.static(path.join(__dirname, 'client')));
 //cors middleware
+
+
 app.use(cors({
     origin: 'http://localhost:5173', // replace with your frontend URL
     credentials: true, // enable cookies

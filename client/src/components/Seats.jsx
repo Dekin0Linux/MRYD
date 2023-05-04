@@ -10,6 +10,7 @@ import Cookies from 'js-cookie'
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
+//SEAT INFORMATION COMPOENENT
 export const Selection=({seatType,price,seatColor})=>{
     return(
         <div className='flex gap-2 border border-green-300 p-3 bg-white'>
@@ -22,33 +23,36 @@ export const Selection=({seatType,price,seatColor})=>{
     )
 }
 
-
 function Seats() {
     const booking = useSelector(state=>state.booking.book)
-    const search = useSelector(state=>state.search.data)
+    // const search = useSelector(state=>state.search.data)
     const [busData,setBusData] = useState([])
     const navigate = useNavigate()
 
-    const token = Cookies.get('login')
+    const token = Cookies.get('login') //getting login token from cookie
 
     const [availSeat,setAvailSeat] = useState() //number of available seat numbers gotten from db
     const [bookedSeats,setBookedSeats] = useState() //array of booked seat numbers gotten from db
     const [chosen,setChosen] = useState([]) // array to keep the user's selected seat
     const [loading, setLoading] = useState(false); //loading state of payment gateway
 
-    //getting bus by id
+    //getting bus by id from database
     const getBus = async(id) => {
         let busResponse = await axios.get(`http://localhost:4000/bus/${id}`)
         setBusData(busResponse.data)
         setAvailSeat(busResponse.data.available_seats)
         setBookedSeats(busResponse.data.booked_seats)
-        
     }
 
     useEffect(()=>{
         getBus(booking.busId)
-
-    },[])
+        //IF OUT GLOBAL STATES HAVE EMPTY KEYS
+        const isEmptyValues = Object.values(booking).every((value)=>value)
+        // alert(isEmptyValues)
+        if(Object.keys(booking).length <= 0 || isEmptyValues == false){
+            navigate('/',{replace:true})
+        }
+    },[])    
 
     //notifications
     const notify = (msg,type) => {
@@ -68,16 +72,18 @@ function Seats() {
             toast.error(msg,{
                 position: toast.POSITION.TOP_LEFT
             });
+        }else if(type == 'failed'){
+            toast.error(msg,{
+                position : toast.POSITION.TOP_LEFT
+            })
         }
         
 
     };
 
-    
-
-    const totalSeats = booking.totalSeats //totals seats of bus
-    const person = booking.persons //number of persons user entered
-    const seatsPerRow = booking.seats_perRow //number of seats per row
+    const totalSeats = booking && booking.totalSeats //totals seats of bus
+    const person = booking && booking.persons //number of persons user entered
+    const seatsPerRow = booking && booking.seats_perRow //number of seats per row
 
     const handleSeatSelect=(seatNumber)=>{
         //check if seat is already selected
@@ -105,21 +111,44 @@ function Seats() {
         notify('Seat '+ seatNumber + ' Selected','selected')
         
         // Otherwise, book the seat and update the bookedSeats state
-        // const newBookedSeats = [...bookedSeats, seatNumber];
-        // setBookedSeats(newBookedSeats)
         // console.log(newBookedSeats)
-
-        //chosen seats
-        // console.log(updatedChosen)
         
     }
 
+    //UPDATING PASSENGERS WITH CHOSEN SEATS
+    let currentPassenger = booking.passenger ? booking.passenger.map((passenger,index)=>{
+        return {...passenger, seat: chosen[index]}
+    }):navigate('/',{replace:true})
+
+    //update bdseats function
+    const dbSeatUpdates = async(seatArray,total)=>{
+        const seatUpdate = {
+            seat : seatArray,
+            currentSeat : total - seatArray.length
+        }
+        await axios.patch(`http://localhost:4000/bus/updateSeats/${busData._id}`,seatUpdate)
+        .then(resp=>console.log(resp.data))
+        .catch(err=>console.log(err))
+    }
+
+    //ADDING NEW BOOKING TO DB
+    const addNewBooking = async(response)=>{
+        const bookingData = {
+            bus_id:busData._id,
+            customer_id : booking.customerID,
+            passengers: currentPassenger,
+            booking_status:response.status,
+            price: booking.fare ,
+            booking_number: nanoid(8)
+        }
+        await axios.post(`http://localhost:4000/booking`,bookingData)
+            .then(resp=>console.log(resp))
+            .catch(err=>console.log(err))
+    }
 
 
-    
-    
     //PAYMENT GATEWAY
-        const handlePayment = async () => {
+    const handlePayment = async () => {
             if(!token){
                 navigate('/login');
                 return;
@@ -132,19 +161,26 @@ function Seats() {
                 amount: booking.fare * 100,
                 currency: 'GHS',
                 callback: (response) => {
-                    if(response.status == 'success' && response.message == 'Approved'){
-                        //update the bus seats data with user seats
-                        console.log('Seats added to bus paid seats', chosen)
-                        //add a new booking
-                        console.log('newbooking',{busid:busData._id,passengers:booking.passenger,bookinStatus:response.status,price:booking.fare,bookingNumber: nanoid(8)})
-                        //add new payment to db
-                        console.log('New payment added')
-                        //rediect user to successful payment page
-                    }
-                    setLoading(false);
+                        if(response.status == 'success' && response.message == 'Approved'){
+                            const myseat = chosen;
+                            const allSeats = totalSeats
+                            dbSeatUpdates(myseat,allSeats)
+                            addNewBooking(response)
+
+                            setLoading(false)
+                            navigate('/success', { replace: true })
+
+                            //add new payment to db
+                            // console.log('New payment added',{customer_id:booking.customerID,amount : booking.fare,paymentStatus : response.status,response.txRef,date:date.now()})
+                            //rediect user to successful payment page
+                        }
+                    
                 },
                 onClose: () => {
+                    notify('Payment Processing Failed','failed')
                     setLoading(false);
+                    return
+                    
                 }
         });
         // Open the Paystack popup
@@ -157,7 +193,7 @@ function Seats() {
     const seatComponents = [];
     for (let i = 1; i <= totalSeats; i++) {
         const seatNumber = `A${i}`;
-        const isBooked = bookedSeats && bookedSeats.includes(seatNumber);
+        const isBooked = bookedSeats && bookedSeats.includes(seatNumber);//
         const isChosen = chosen.includes(seatNumber)
         seatComponents.push(
         <button

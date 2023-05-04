@@ -9,6 +9,7 @@ import SeatSelect from './pages/SeatSelect'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import BookBusPage from './pages/BookBusPage'
+import Success from './pages/Success'
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
           <Route path='seat' element={<SeatSelect/>} />
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/mybooking' element={<BookBusPage/>}/>
+          <Route path='/success' element={<Success/>} />
+          <Route path='*' element={<Homepage/>}/>
         </Routes>
       </Router>
     

@@ -25,7 +25,7 @@ function LoginComponent() {
     },
 
         validationSchema: Yup.object({
-            email :Yup.string().required("email is required").email('Enter a Valid Email'),
+            email :Yup.string().required("Email is required").email('Enter a Valid Email'),
             password :Yup.string().required("Password is required").min(8,'Password must be at least 8 characters'),
         }),
         onSubmit: async (v)=>{
@@ -48,7 +48,7 @@ function LoginComponent() {
                     email : userEmail
                 }
                 dispatch(addToCart(user))
-                navigate('/seat')
+                navigate('/seat',{replace:true})
             }).catch(err=>{
                 setIsActive(true)
                 setError(err)

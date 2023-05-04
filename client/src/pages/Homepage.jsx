@@ -7,7 +7,7 @@ import Explore from '../components/Explore'
 
 function Homepage() {
   return (
-    <div className='bg-blue-100'>
+    <div className=''>
         <Hero/>
         <SearchInput/>
         <Features title='Our Features'/>

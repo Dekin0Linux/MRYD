@@ -57,7 +57,7 @@ const searchBus = async(req,res)=>{
         }
         res.send(buses)
     }catch(err){
-        res.json({msg:err.message})
+        res.json({msg:err})
     }
 }
 

@@ -79,11 +79,22 @@ function SignupComponent() {
                 <small className='md:mb-3'>Sign up for an account </small>
 
                 <form onSubmit={signUp.handleSubmit} className='mt-5'>
-                    {signUp.touched.firstname && signUp.errors.firstname ? <p className='text-red-600'>{signUp.errors.firstname}</p> : null}
-                    <input type="text" placeholder='First name' name='firstname' onChange={signUp.handleChange} value={signUp.values.firstname} onBlur={signUp.handleBlur}  className='px-3 my-3 py-1 border border-gray-300 w-[100%] outline-0 rounded'/>
+                    <div className='md:flex justify-between gap-5'>
+                        <div className='md:w-1/2'>
+                            {signUp.touched.firstname && signUp.errors.firstname ? <p className='text-red-600'>{signUp.errors.firstname}</p> : null}
+                            <input type="text" placeholder='First name' name='firstname' onChange={signUp.handleChange} value={signUp.values.firstname} onBlur={signUp.handleBlur}  className='px-3 my-3 py-1 border border-gray-300 w-[100%] outline-0 rounded'/>
+                        </div>
 
-                    {signUp.touched.lastname && signUp.errors.lastname ? <p className='text-red-600'>{signUp.errors.lastname}</p> : null}
-                    <input type="text" placeholder='Last name' name='lastname'  onChange={signUp.handleChange} value={signUp.values.lastname} onBlur={signUp.handleBlur} className='px-3 my-3 py-1 border border-gray-300 w-[100%] outline-0 rounded'/>
+                        <div className='md:w-1/2'>
+                        {signUp.touched.lastname && signUp.errors.lastname ? <p className='text-red-600'>{signUp.errors.lastname}</p> : null}
+                        <input type="text" placeholder='Last name' name='lastname'  onChange={signUp.handleChange} value={signUp.values.lastname} onBlur={signUp.handleBlur} className='px-3 my-3 py-1 border border-gray-300 w-[100%] outline-0 rounded'/>
+                        </div>
+                    
+
+                    
+
+                    </div>
+                    
 
                     {signUp.touched.email && signUp.errors.email ? <p className='text-red-600'>{signUp.errors.email}</p> : null}
                     <input type="email" placeholder='Email' name='email' onChange={signUp.handleChange} value={signUp.values.email} onBlur={signUp.handleBlur} className='px-3 my-3 py-1 border border-gray-300 w-[100%] outline-0 rounded'/>
@@ -103,7 +114,7 @@ function SignupComponent() {
                 <Link to={'/login'}> <small> Already have an account? Login</small></Link>
             </div>
             <div className='md:w-1/2 hidden md:block bg-green-400'>
-                <img src="https://images.unsplash.com/photo-1565990315145-9b2f389b0927?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="" className='object-cover w-full' />
+                <img src="https://images.unsplash.com/photo-1543838244-8c6ca03cb689?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" className='object-cover h-full' />
             </div>
         </div>
 

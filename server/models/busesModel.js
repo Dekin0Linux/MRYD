@@ -13,7 +13,6 @@ for (let i = 0; i < 365; i++) {
  //creating the buses schema
 const busSchema = mongoose.Schema({
       bus_name :{type: mongoose.Schema.Types.ObjectId ,ref:'company', required : true},
-      //  bus_logo : {type: mongoose.Schema.Types.ObjectId ,ref:'company', required : true},
       bus_number : {type:String,required:true},
       bus_type : {type:String,required:true},
       depature_loc : {type:String,required:true},
@@ -23,7 +22,11 @@ const busSchema = mongoose.Schema({
       arrival_date : {type:String , reqiired: true},
       arrival_time : {type:String,required:true},
       total_seats : {type:Number,required:true},
-      available_seats :{type:Number,required:true},
+      available_seats :{type: Number,required: true,
+        default: function() {
+          return this.total_seats;
+        }
+      },
       booked_seats : {type:[String]},
       seats_perRow : {type: Number, require:true},
       amenities : {type:Array},
@@ -32,6 +35,12 @@ const busSchema = mongoose.Schema({
       station_name: {type:String,required:true}
 
 },{timestamps:true})
+
+busSchema.pre('save', function(next) {
+  this.available_seats = this.total_seats - this.booked_seats.length;
+  next();
+});
+
 
  //creating a bus model 
  const BusModel = mongoose.model('bus',busSchema)

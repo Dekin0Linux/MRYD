@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Bus from './Buses'
+import React, { useState,useEffect } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import PassengerForm from '../components/PassengerForm'
 import { addToCart } from '../states/cart/cartReducer'
@@ -7,9 +6,9 @@ import { useNavigate } from 'react-router-dom'
 
 export const PriceBar = ({booking,userSearch})=>{
   return(
-        <div className='flex justify-between p-5 mx-2 bg-yellow-500 shadow rounded'>
+        <div className='flex justify-between p-5 mx-2 bg-blue-500 shadow rounded text-white'>
           <div>
-              <p className='font-semibold text-brown-600 capitalize'>{booking && booking.depature} - {booking && booking.arrival_loc}</p>                                
+              <p className='font-semibold text-brown-600 capitalize text-xl'>{booking && booking.depature} - {booking && booking.arrival_loc}</p>                                
               <p>Date | {userSearch.date}</p>
           </div>
           <div>
@@ -28,14 +27,24 @@ function PassengerDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  useEffect(()=>{    
+    //IF OUT GLOBAL STATES HAVE EMPTY KEYS
+    const isEmptyValues = Object.values(booking).every((value)=>value)
+    if(Object.keys(booking).length <= 0 || isEmptyValues == false){
+        navigate('/',{replace:true})
+    }
+},[])
+
+
+
   const [passengersData,setPassengersData] = useState([])
   
-
+  //Passenger form
   const handlePassengerData = (num, data) => {
     //num is the index of the passenger
     // is an object of passengers data
     const updatedPassenger = [...passengersData] //copy exisiting passenger data 
-    updatedPassenger[num] = data //setting the index of the item to the new data
+    updatedPassenger[num] = data //setting the index of the item to the new data user enters
     setPassengersData(updatedPassenger) //update the state with pasengers data
   };
 
@@ -68,7 +77,7 @@ function PassengerDetails() {
 
         <div>
           <p className='text-center my-5 font-bold text-xl'>Fill in your details</p>
-          <form className='md:px-10 px-4' onSubmit={handleFormSubmit}>
+          <form className='md:px-10 px-4' onSubmit={handleFormSubmit} >
             {
               renderForm() //user form
             }

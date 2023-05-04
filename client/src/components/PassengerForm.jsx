@@ -8,7 +8,7 @@ function PassengerForm({num,handlePassengerData}) {
     const [fullname,setFullname] = useState('')
     const [age,setAge] = useState('')
     const [phone,setPhone] = useState('')
-    const [ticketNumber,setTicketNumber] = useState('')
+    // const [ticketNumber,setTicketNumber] = useState('')
 
     const handleFormChange=(e)=>{
         const {name,value} = e.target
@@ -45,7 +45,7 @@ function PassengerForm({num,handlePassengerData}) {
 
 
   return (
-    <div className='border my-5 shadow rounded p-3'>
+    <div className='border border-blue-400 my-5 shadow rounded p-3'>
         <p className='my-2 font-bold px-2'>Passenger No. {num +1}</p>
         <div className='md:flex flex-wrap gap-5 mb-5 mx-2 '>
             <div className='my-2'>
@@ -61,15 +61,15 @@ function PassengerForm({num,handlePassengerData}) {
             </div>
             <div className='my-2'>
                 <label htmlFor="">Full Name</label><br />
-                <input type="text" name='fullname' value={fullname} onChange={handleFormChange} placeholder='Enter' className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize'/>
+                <input type="text" name='fullname' value={fullname} onChange={handleFormChange} placeholder='Enter' className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize' required/>
             </div>
             <div className='my-2'>
                 <label htmlFor="">Age</label><br />
-                <input type="number" name='age' value={age} onChange={handleFormChange} placeholder='Enter' maxLength={2} className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize'/>
+                <input type="number" name='age' value={age} onChange={handleFormChange} placeholder='Enter' maxLength={2} className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize' required/>
             </div>
             <div className='my-2'>
                 <label htmlFor="">Phone (Optional)</label><br />
-                <input type="number" name='phone' value={phone} onChange={handleFormChange} maxLength={'10'} placeholder='XXXXXXXXXX' className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize'/>
+                <input type="number" name='phone' value={phone} onChange={handleFormChange} maxLength={'10'} placeholder='XXXXXXXXXX' className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize' />
             </div>
         </div>
     </div>

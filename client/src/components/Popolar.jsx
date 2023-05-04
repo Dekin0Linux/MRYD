@@ -3,7 +3,7 @@ import bus from '../assets/bus3.png'
 
 function Popolar() {
   return (
-    <div className='bg-blue-700 p-10 md:my-48 my-24 '>
+    <div className='bg-blue-500 p-10 md:my-48 my-24 '>
         <div className="container mx-auto">
             <div className="flex text-white">
                 <div className='md:w-1/2'>
@@ -13,7 +13,6 @@ function Popolar() {
                         <img src={bus} alt="bus" />
                     </div>
                 </div>
-               
             </div>
         </div>
 

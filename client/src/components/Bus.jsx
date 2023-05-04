@@ -32,8 +32,9 @@ function Bus({bus,index}) {
         }
     }
 
+
   return (
-    <div className='md:flex justify-between bg-white p-5 shadow-lg md:my-8 my-4 rounded-lg mx-2 md:mx-0'>
+    <div className='md:flex justify-between bg-white p-5 shadow-lg md:my-8 my-4 rounded-lg mx-2 md:mx-0 border-blue-400 border-[3px]'>
         <div className='flex-1 '>
             <div className='md:flex gap-5'>
                 <div className='w-32'>

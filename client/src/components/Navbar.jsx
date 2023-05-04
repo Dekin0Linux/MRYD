@@ -46,8 +46,8 @@ function Navbar() {
                   <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
                   <Link to={'/'}><li className='font-bold'>Home</li></Link>
                   <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
-                  <Link to="/signup"><li className='font-bold'>Create New Account</li></Link>
-                  <Link to="/login"><li className='font-bold'>Login</li></Link>
+                  {/* <Link to="/signup"><li className='font-bold'>Create New Account</li></Link> */}
+                  {/* <Link to="/login"><li className='font-bold'>Login</li></Link> */}
 
                   
                   
