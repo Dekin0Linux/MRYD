@@ -6,11 +6,11 @@ const PaymentSchema = mongoose.Schema({
     amount : {type: Number , require:true},
     paymentStatus: {type:String , required:true },
     refNumber : {type:String , required : true},
-    date : {type:String , required : true},
+    date : {type:Date , required : true},
 
 },{timestamps:true})
 
-//creating a booking model 
-const PaymentModel = mongoose.model('booking',PaymentSchema)
+//creating a payment model 
+const PaymentModel = mongoose.model('payment',PaymentSchema)
 
 module.exports = PaymentModel;

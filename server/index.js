@@ -10,6 +10,7 @@ const busesRoutes = require('./routes/busesRoute')
 const bookingRoutes = require('./routes/bookingsRoute')
 const usersRoutes = require('./routes/usersRoute')
 const companyRoutes = require('./routes/companyRoute')
+const paymentsRoute = require('./routes/paymentsRoute')
 
 //config environment
 dotenv.config()
@@ -55,6 +56,8 @@ app.use('/booking', bookingRoutes)
 app.use('/user', usersRoutes)
 //company routes
 app.use('/company', companyRoutes)
+//PAYMENT ROUTE
+app.use('/payment', paymentsRoute)
 
 
 

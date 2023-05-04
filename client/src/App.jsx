@@ -15,8 +15,7 @@ import Success from './pages/Success'
 function App() {
 
   return (
-    <div className="h-full">
-      
+    <div className="">
       <Router>
         <Navbar/>
         <Routes>
