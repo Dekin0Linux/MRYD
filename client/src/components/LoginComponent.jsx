@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import Logo from '../assets/MyRydWebLogo.png'
 import { useFormik } from 'formik'
@@ -17,6 +17,7 @@ function LoginComponent() {
     const dispatch = useDispatch()
 
     const token = Cookies.get('login')
+    
 
     const Login = useFormik({
     initialValues:{
@@ -28,6 +29,7 @@ function LoginComponent() {
             email :Yup.string().required("Email is required").email('Enter a Valid Email'),
             password :Yup.string().required("Password is required").min(8,'Password must be at least 8 characters'),
         }),
+
         onSubmit: async (v)=>{
             if(v.email == ''  && v.password == ''){
                 return ;
@@ -39,21 +41,26 @@ function LoginComponent() {
 
             await axios.post('http://localhost:4000/user/login', data ,
             {withCredentials: true,},
-            {headers: {Authorization: `Bearer ${token}`}}).then(response=>{
-                const userID = response.data._id;
-                const userEmail = response.data.email
-                const user = {
-                    ...booking,
-                    customerId : userID,
-                    email : userEmail
+            {headers: {Authorization: `Bearer ${token}`}})
+            .then(response =>{
+                
+                if(response.data === 'Incorrect Password'){
+                    setError('Incorrect Password')
+                    setIsActive(true)
+                }else{
+                    const userID = response.data._id; //gets logged in customer id
+                    const userEmail = response.data.email //gets registed customer email
+                    //adding to out global state
+                    const user = {
+                        ...booking,
+                        customerId : userID,
+                        email : userEmail
+                    }
+                    dispatch(addToCart(user)) //dipatch data to state
+                    navigate('/seat',{replace:true})
                 }
-                dispatch(addToCart(user))
-                navigate('/seat',{replace:true})
-            }).catch(err=>{
-                setIsActive(true)
-                setError(err)
-            
-            })
+
+            }).catch(err=>{console.log(err) })
             
         }
 

@@ -43,7 +43,7 @@ const createNewUser = async (req,res)=>{
         }
         await user.save().then((doc)=>{
             const userToken = token(doc._id) //setting jwt token id
-            res.cookie('login', userToken, {httpOnly:true, maxAge: 3*24*60*60})
+            res.cookie('login', userToken, {httpOnly:false, maxAge: 3*24*60*60})
             res.json(doc).status(200) 
         })
     }catch(err){
@@ -55,21 +55,22 @@ const createNewUser = async (req,res)=>{
 
 const loginUser = async(req,res)=>{
     //get use input
-    const {email,password} = req.body
-    const user = await userModel.findOne({email:email})
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-    //verify user password
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (passwordMatch) {
-        const userToken = token(user._id) //setting jwt token id
-        res.cookie('login',userToken,{httpOnly:false, maxAge: 3*24*60*60})
-        return res.status(200).json(user);        
-    }else{
-        return res.status(401).json({ message: 'Incorrect password' });
-    }
-   
+        const {email,password} = req.body
+        const user = await userModel.findOne({email:email})
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        await bcrypt.compare(password, user.password,(err,result)=>{
+            if(err || !result){
+                return res.send('Incorrect Password').status(401);
+            }
+            const userToken = token(user._id) //setting jwt token id
+            res.cookie('login',userToken,{httpOnly:false, maxAge: 3*24*60*60})
+            return res.status(200).json(user);
+        });
+        
+        
 }
 
 

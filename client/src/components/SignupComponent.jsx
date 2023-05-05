@@ -58,7 +58,7 @@ function SignupComponent() {
                     customerId : userID
                 }
                 dispatch(addToCart(user))
-                navigate('/login') 
+                navigate('/seat') 
             }).catch(err=>{
                 setIsActive(true)
                 setError(err)

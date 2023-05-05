@@ -135,15 +135,29 @@ function Seats() {
     const addNewBooking = async(response)=>{
         const bookingData = {
             bus_id:busData._id,
-            customer_id : booking.customerID,
+            customer_id : booking.customerId,
             passengers: currentPassenger,
             booking_status:response.status,
             price: booking.fare ,
             booking_number: nanoid(8)
         }
         await axios.post(`http://localhost:4000/booking`,bookingData)
-            .then(resp=>console.log(resp))
+            .then(resp=>console.log(resp)) 
             .catch(err=>console.log(err))
+    }
+
+    //ADDING PAYMENT INFO TO DB
+    const addPaymentInfo = async(response)=>{
+        const data = {
+            customer_id: booking.customerId,
+            amount : booking.fare, 
+            paymentStatus : response.status, 
+            refNumber : response.reference,
+            date : new Date()
+        }
+        await axios.post(`http://localhost:4000/payment`, data)
+        .then(resp=>console.log(resp.data))
+        .catch(err=>console.log(err))
     }
 
 
@@ -164,17 +178,14 @@ function Seats() {
                         if(response.status == 'success' && response.message == 'Approved'){
                             const myseat = chosen;
                             const allSeats = totalSeats
+
                             dbSeatUpdates(myseat,allSeats)
                             addNewBooking(response)
+                            addPaymentInfo(response)
 
                             setLoading(false)
                             navigate('/success', { replace: true })
-
-                            //add new payment to db
-                            // console.log('New payment added',{customer_id:booking.customerID,amount : booking.fare,paymentStatus : response.status,response.txRef,date:date.now()})
-                            //rediect user to successful payment page
                         }
-                    
                 },
                 onClose: () => {
                     notify('Payment Processing Failed','failed')

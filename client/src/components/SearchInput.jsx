@@ -43,12 +43,13 @@ function SearchInput() {
     }),
 
     onSubmit:(values)=>{
-      dispatch(setSearch(values))
+      
 
       if(values.from === values.to){
         notify('Invalid location','invalid')
         return
       }else{
+        dispatch(setSearch(values))
         navigate('/buses')
       }
     }
@@ -96,7 +97,7 @@ function SearchInput() {
                     <option>To Station</option>
                     {
                       toCities.map((city,index) => (
-                        <option value={city} key={index} className='captialize'><p className='captilize'>{city}</p></option>
+                        <option value={city} key={index} className='captialize'>{city}</option>
                       ))
                     }
                 </select>

@@ -3,7 +3,8 @@ import bus1 from '../assets/bus1.png'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import { EffectFade } from 'swiper';
+import { Autoplay } from 'swiper';
+
 
 //md:w-2/3
 function Hero() {
@@ -11,11 +12,14 @@ function Hero() {
     <div className=''>
         <Swiper className='w-full md:h-[65vh] h-[40vh]  relative '
             // spaceBetween={50}
-            modules={[EffectFade]} 
-            effect="fade"
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
             slidesPerView={1}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => {}}
+            onSwiper={(swiper) => swiper}
         >
             
             <SwiperSlide>

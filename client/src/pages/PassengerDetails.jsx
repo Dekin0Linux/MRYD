@@ -30,6 +30,7 @@ function PassengerDetails() {
   useEffect(()=>{    
     //IF OUT GLOBAL STATES HAVE EMPTY KEYS
     const isEmptyValues = Object.values(booking).every((value)=>value)
+    
     if(Object.keys(booking).length <= 0 || isEmptyValues == false){
         navigate('/',{replace:true})
     }
