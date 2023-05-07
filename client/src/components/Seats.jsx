@@ -170,7 +170,7 @@ function Seats() {
             setLoading(true);
         // Initialize the Paystack popup with the payment information
             const handler = window.PaystackPop.setup({
-                key: 'pk_test_a104fcee3203b59d5d54e0de7cf1687f022e8ca2',
+                key: import.meta.env.VITE_REACT_APP_SECRET_KEY,
                 email: booking.email,
                 amount: booking.fare * 100,
                 currency: 'GHS',

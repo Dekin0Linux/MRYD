@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useState} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import Logo from '../assets/MyRydWebLogo.png'
 import { useFormik } from 'formik'
@@ -17,14 +17,12 @@ function LoginComponent() {
     const dispatch = useDispatch()
 
     const token = Cookies.get('login')
-    
 
     const Login = useFormik({
     initialValues:{
         email : '',
         password : ''
     },
-
         validationSchema: Yup.object({
             email :Yup.string().required("Email is required").email('Enter a Valid Email'),
             password :Yup.string().required("Password is required").min(8,'Password must be at least 8 characters'),
@@ -38,7 +36,6 @@ function LoginComponent() {
                 email : v.email,
                 password : v.password
             }
-
             await axios.post('http://localhost:4000/user/login', data ,
             {withCredentials: true,},
             {headers: {Authorization: `Bearer ${token}`}})
@@ -59,12 +56,9 @@ function LoginComponent() {
                     dispatch(addToCart(user)) //dipatch data to state
                     navigate('/seat',{replace:true})
                 }
-
             }).catch(err=>{console.log(err) })
             
         }
-
-
     })
 
   return (

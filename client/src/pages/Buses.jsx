@@ -3,6 +3,12 @@ import Bus from '../components/Bus'
 import {useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
+
+const MySwal = withReactContent(Swal)
 
 
 function Buses() {
@@ -26,7 +32,13 @@ function Buses() {
         setBuses(resp.data)
         setLoading(false)
       })
-      .catch(err=>alert(err))
+      .catch(err=>{
+        MySwal.fire({
+          title : <h2>Sever Error</h2>,
+          text : 'Sorry , We have trouble with our server',
+          icon : 'error'
+        })
+      })
   }
   //using fetch
   

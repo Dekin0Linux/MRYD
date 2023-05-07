@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function SearchInput() {
   
   const fromCities = ['accra','kumasi', 'tamale','sunyani']
-  const toCities = ['accra','Kumasi', 'tamale','sunyani']
+  const toCities = ['accra','kumasi', 'tamale','sunyani']
 
   // const search = useSelector(state=>state.search)
   const dispatch = useDispatch()
@@ -19,7 +19,7 @@ function SearchInput() {
   const notify = (msg,type) => {
     if(type=='invalid'){
         toast.warning(msg,{
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.BOTTOM_RIGHT
         });
     }
   
@@ -56,22 +56,22 @@ function SearchInput() {
   })
 
   
-
   return (
-    <div className='bg-white backdrop-blur-lg shadow-2xl md:absolute md:bottom-[10%] bottom-[2%] inset-x-0 p-2 mx-5 mt-3  md:mx-10 lg:mx-40 rounded border-blue-300 border-[3px] z-50'>
+    <div className='bg-white shadow-2xl md:absolute md:bottom-[10%] bottom-[2%] p-2 mx-5 mt-3 inset-x-0 md:mx-10 lg:mx-40 rounded-lg border-blue-300 border-[5px] z-50'>
     <h3 className='font-semibold text-xl p-3 text-blue-800'>Get Ticket</h3>
-    <ToastContainer/>
+    
     <hr />
     <div className='my-5'>
       {/* md:flex flex-wrap md:gap-x-7 md:gap-y-5 */}
         <form action="" method='get' className='p-2 md:flex flex-wrap md:gap-x-4 md:gap-y-5' onSubmit={formik.handleSubmit}>
+          <ToastContainer/>
             <div className=' mb-5 md:mb-0'>
                 <label htmlFor="from">From</label> <br />
                 <select name="from" id="from" className='md:py-3 bg-white border-blue-300 border-2 py-2 px-4 md:w-60 w-full outline-none' 
                 value={formik.values.from} 
                 onChange={formik.handleChange} 
                 onBlur={formik.handleBlur}>
-                    <option >From Station</option>
+                    <option>From Station</option>
                     {
                       fromCities.map((city,index) => (
                         <option value={city} key={index} className='capitalize '>{city}</option>
@@ -94,7 +94,7 @@ function SearchInput() {
                 value={formik.values.to} 
                 onChange={formik.handleChange} 
                 onBlur={formik.handleBlur}>
-                    <option>To Station</option>
+                    <option >To Station</option>
                     {
                       toCities.map((city,index) => (
                         <option value={city} key={index} className='captialize'>{city}</option>

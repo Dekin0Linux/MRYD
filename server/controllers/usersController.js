@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken')
 
 //CREATING OUR JWT FUNCTION
 const token = (id)=>{
-    return jwt.sign({id:id},process.env.SECRET,{expiresIn: 3*24*60*60})
+    return jwt.sign({id:id},process.env.SECRET)
 }
+//,{expiresIn: 3*24*60*60}
 
 const getAllusers = async (req,res)=>{
     const allusers = await userModel.find()
@@ -66,7 +67,7 @@ const loginUser = async(req,res)=>{
                 return res.send('Incorrect Password').status(401);
             }
             const userToken = token(user._id) //setting jwt token id
-            res.cookie('login',userToken,{httpOnly:false, maxAge: 3*24*60*60})
+            res.cookie('login',userToken,{httpOnly:false}) //, maxAge: 3*24*60*60
             return res.status(200).json(user);
         });
         
