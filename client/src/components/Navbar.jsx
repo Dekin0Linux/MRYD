@@ -16,25 +16,25 @@ function Navbar() {
  const getUser = JSON.parse(localStorage.getItem('user'))
 
  useEffect(()=>{
-  if(token && getUser){
+  if(getUser){
     setLoggedIn(true)
-    console.log(token)
-    console.log("LoggedIN user")
+    return
+    // console.log(token)
+    // console.log("LoggedIN user")
    }
  })
 
 
  //LOGOUT FUNCTION
  const logOut= async ()=>{
-  axios.post('https://myrydgh.onrender.com/user/logout/').then(res=>{
+  axios.post('https://myrydgh.onrender.com/user/logout').then(res=>{
     if(res.statusText == "OK"){
-      Cookies.remove('login') // delete cookie
+      // Cookies.remove('login') // delete cookie
       localStorage.removeItem('user') //user storage
       setLoggedIn(false)
       console.log(res)
       window.location.href='/'
       console.log('loogedout')
-      
     }
   }).catch(err=>console.log(err))
  }
@@ -66,7 +66,7 @@ function Navbar() {
                     <Link to={'/'}><li className='font-bold'>Home</li></Link>
                     <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
                     {
-                      loggedIn == true ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
                     }
                 </ul> )
                 : (
@@ -75,13 +75,10 @@ function Navbar() {
                   <Link to={'/'}><li className='font-bold'>Home</li></Link>
                   <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
                   {
-                      loggedIn == true ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
                   }
-                  {/* <Link to="/signup"><li className='font-bold'>Create New Account</li></Link> */}
-                  {/* <Link to="/login"><li className='font-bold'>Login</li></Link> */}
-
-                </ul>  )
-
+                </ul>  
+                )
                 }       
             </nav>
         

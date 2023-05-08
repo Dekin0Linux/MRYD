@@ -44,7 +44,7 @@ const createNewUser = async (req,res)=>{
         }
         await user.save().then((doc)=>{
             const userToken = token(doc._id) //setting jwt token id
-            res.cookie('login', userToken, {httpOnly:true, maxAge: 3*24*60*60})
+            res.cookie('login', userToken, {httpOnly:true})
             res.json(doc).status(200) 
         })
     }catch(err){
