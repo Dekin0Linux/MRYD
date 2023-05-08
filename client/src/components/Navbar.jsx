@@ -27,7 +27,7 @@ const logOut = async ()=>{
   //     console.log('loogedout')
   //   }
   // }).catch(err=>console.log(err))
-  
+
   localStorage.removeItem('user') //user storage
   window.location.href='/'
 }
@@ -40,10 +40,6 @@ if(getUser){
   // console.log("LoggedIN user")
   }
 })
-
-
-
-
 
   const clicked = ()=>{
     setSelected(!selected)
@@ -71,7 +67,7 @@ if(getUser){
                     <Link to={'/'}><li className='font-bold'>Home</li></Link>
                     <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
                     {
-                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn ? <Link to="/"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
                     }
                 </ul> )
                 : (
@@ -80,7 +76,7 @@ if(getUser){
                   <Link to={'/'}><li className='font-bold'>Home</li></Link>
                   <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
                   {
-                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn ? <Link to="/"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
                   }
                 </ul>  
                 )
