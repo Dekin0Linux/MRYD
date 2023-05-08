@@ -57,7 +57,7 @@ function SearchInput() {
 
   
   return (
-    <div className='bg-white shadow-2xl md:absolute md:bottom-[10%] bottom-[2%] p-2 mx-5 mt-3 inset-x-0 md:mx-10 lg:mx-40 rounded-lg border-blue-300 border-[5px] z-50'>
+    <div id='searchBox' className='bg-white shadow-2xl md:absolute md:bottom-[10%] bottom-[2%] p-2 mx-5 mt-3 inset-x-0 md:mx-10 lg:mx-40 rounded-lg border-blue-300 border-[5px] z-50'>
     <h3 className='font-semibold text-xl p-3 text-blue-800'>Get Ticket</h3>
     
     <hr />

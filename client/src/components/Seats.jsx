@@ -53,8 +53,6 @@ function Seats() {
         if(Object.keys(booking).length <= 0 || isEmptyValues == false){
             navigate('/',{replace:true})
         }
-
-        console.log(getUser)
     },[])    
 
     //notifications
@@ -86,6 +84,7 @@ function Seats() {
     const person = booking && booking.persons //number of persons user entered
     const seatsPerRow = booking && booking.seats_perRow //number of seats per row
 
+    //SEAT SELECTING FUNCTION
     const handleSeatSelect=(seatNumber)=>{
         //check if seat is already selected
         if (bookedSeats.includes(seatNumber)) {
@@ -94,7 +93,7 @@ function Seats() {
         }
         //if seats is choosen by user and user clicks again remove the chosen seat
         if(chosen.includes(seatNumber)){
-            const updatedChosen = chosen.filter((chosenSeat) => chosenSeat !== seatNumber);
+            const updatedChosen = chosen.filter((chosenSeat) => chosenSeat !== seatNumber); //NEW ARRAY WITH REMOVED SEAT
             setChosen(updatedChosen);
             notify('Seat Removed','unselected')
             return;
@@ -166,9 +165,10 @@ function Seats() {
                 return;
             }
             setLoading(true);
-        // Initialize the Paystack popup with the payment information
+
+            // Initialize the Paystack popup with the payment information
             const handler = window.PaystackPop.setup({
-                key: import.meta.env.VITE_REACT_APP_SECRET_KEY,
+                key: import.meta.env.VITE_REACT_APP_SECRET_KEY, 
                 email: getUser.email,
                 amount: booking.fare * 100,
                 currency: 'GHS',
@@ -183,10 +183,13 @@ function Seats() {
 
                             setLoading(false)
                             navigate('/success', { replace: true })
+                        }else{
+                            setLoading(false);
+                            notify('Error Occured During Payment','failed')
                         }
                 },
                 onClose: () => {
-                    notify('Payment Processing Failed','failed')
+                    notify('Payment Processing Cancelled','failed')
                     setLoading(false);
                     return
                     

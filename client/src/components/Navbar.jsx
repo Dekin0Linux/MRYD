@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import logo from '../assets/MyRydWebLogo.png'
 import {FaBars} from 'react-icons/fa'
 import {GrClose} from 'react-icons/gr'
@@ -10,19 +10,28 @@ import { useNavigate } from 'react-router-dom'
 function Navbar() {
   const [selected,setSelected] = useState(false)
   const [loggedIn,setLoggedIn] = useState(false)
-  const navigate = useNavigate('/')
+  const navigate = useNavigate()
 
   const token = Cookies.get('login')
  const getUser = JSON.parse(localStorage.getItem('user'))
 
+ useEffect(()=>{
+  if(token && getUser){
+    setLoggedIn(true)
+   }
+ })
+
+
  //LOGOUT FUNCTION
- const logOut  =async ()=>{
+ const logOut= async ()=>{
   axios.post('http://localhost:4000/user/logout',{}).then(res=>{
     if(res.statusText == "OK"){
       Cookies.remove('login')
       localStorage.removeItem('user')
-      setLoggedIn(true)
-      navigate('/',{replace:true})
+      setLoggedIn(false)
+      // navigate('/',{replace:true})
+      window.location.href='/'
+      console.log('loogedout')
     }
   }).catch(err=>console.log(err))
  }
@@ -48,29 +57,27 @@ function Navbar() {
 
                 {
                   !selected ?
+                  (
                 <ul className={'md:flex justify-between md:gap-10 hidden'}>
                     <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
                     <Link to={'/'}><li className='font-bold'>Home</li></Link>
                     <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
                     {
-                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn == true ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
                     }
-                    {/* <Link to="/signup"><li className='font-bold'>Create New Account</li></Link> */}
-                    {/* <Link to="/"><li className='font-bold'>Login</li></Link> */}
-                    
-                </ul> 
-                :
+                </ul> )
+                : (
                 <ul className={'md:flex justify-between md:gap-10'}>
                   <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
                   <Link to={'/'}><li className='font-bold'>Home</li></Link>
                   <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
                   {
-                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn == true ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
                   }
                   {/* <Link to="/signup"><li className='font-bold'>Create New Account</li></Link> */}
                   {/* <Link to="/login"><li className='font-bold'>Login</li></Link> */}
 
-                </ul> 
+                </ul>  )
 
                 }       
             </nav>
