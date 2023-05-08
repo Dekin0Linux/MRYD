@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 app.use(cors(
    { 
-    origin: ['http://localhost:5173','https://mryd.vercel.app/'], // replace with your frontend URL
+    origin: ['http://localhost:5173','https://mryd.vercel.app/','https://myryd.onrender.com'], // replace with your frontend URL
     credentials: true, // enable cookies
     }
 ))
