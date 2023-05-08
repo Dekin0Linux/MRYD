@@ -36,7 +36,7 @@ function LoginComponent() {
                 email : v.email,
                 password : v.password
             }
-            await axios.post('http://localhost:4000/user/login', data ,
+            await axios.post('https://myrydgh.onrender.com/user/login', data ,
             {withCredentials: true,},
             {headers: {Authorization: `Bearer ${token}`},}
             )

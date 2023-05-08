@@ -138,7 +138,7 @@ function Seats() {
             price: booking.fare ,
             booking_number: nanoid(8)
         }
-        await axios.post(`http://localhost:4000/booking`,bookingData)
+        await axios.post(`https://myrydgh.onrender.com/booking`,bookingData)
             .then(resp=>(resp)) 
             .catch(err=>(err))
     }

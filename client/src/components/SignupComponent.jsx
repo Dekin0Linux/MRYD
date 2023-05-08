@@ -49,7 +49,7 @@ function SignupComponent() {
                 password : v.password
             }
 
-            await axios.post('http://localhost:4000/user/register',data,
+            await axios.post('https://myrydgh.onrender.com/user/register',data,
             {withCredentials: true,},
             {headers: {Authorization: `Bearer ${token}`}}).then(response=>{
                 localStorage.setItem('user',JSON.stringify(response.data))
