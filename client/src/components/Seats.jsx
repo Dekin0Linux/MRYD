@@ -165,7 +165,6 @@ function Seats() {
                 return;
             }
             setLoading(true);
-
             // Initialize the Paystack popup with the payment information
             const handler = window.PaystackPop.setup({
                 key: import.meta.env.VITE_REACT_APP_SECRET_KEY, 
