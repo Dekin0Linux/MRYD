@@ -16,7 +16,7 @@ function Navbar() {
  const getUser = JSON.parse(localStorage.getItem('user'))
 
  useEffect(()=>{
-  if(getUser){
+  if(token || getUser){
     setLoggedIn(true)
    }
  })
@@ -24,7 +24,7 @@ function Navbar() {
 
  //LOGOUT FUNCTION
  const logOut= async ()=>{
-  axios.post('http://localhost:4000/user/logout',{}).then(res=>{
+  axios.post('https://myrydgh.onrender.com/user/logout',{}).then(res=>{
     if(res.statusText == "OK"){
       Cookies.remove('login')
       localStorage.removeItem('user')
