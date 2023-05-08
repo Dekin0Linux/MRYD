@@ -132,7 +132,7 @@ const deleteUser = async(req,res)=>{
 const logOut = (req,res)=>{
     res.cookie('login','', {httpOnly:true,sameSite: 'none',secure: true,maxAge:1})
     res.json({msg:"Logged out successful"})
-    res.redirect('/user')
+    // res.redirect('/')
     
 }
 
