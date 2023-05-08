@@ -39,7 +39,7 @@ function Seats() {
 
     //getting bus by id from database
     const getBus = async(id) => {
-        let busResponse = await axios.get(`http://localhost:4000/bus/${id}`)
+        let busResponse = await axios.get(`https://myryd.onrender.com/bus/${id}`)
         setBusData(busResponse.data)
         setAvailSeat(busResponse.data.available_seats)
         setBookedSeats(busResponse.data.booked_seats)
