@@ -38,7 +38,7 @@ function LoginComponent() {
             }
             await axios.post('https://myrydgh.onrender.com/user/login', data ,
             {withCredentials: true,},
-            {headers: {Authorization: `Bearer ${token}`},}
+            {headers:{Authorization: `Bearer ${token}`}}
             )
             .then(response =>{
                 if(response.data === 'Incorrect Password'){

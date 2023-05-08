@@ -16,7 +16,7 @@ function Navbar() {
  const getUser = JSON.parse(localStorage.getItem('user'))
 
  useEffect(()=>{
-  if(token || getUser){
+  if(token && getUser){
     setLoggedIn(true)
    }
  })
@@ -29,7 +29,6 @@ function Navbar() {
       Cookies.remove('login')
       localStorage.removeItem('user')
       setLoggedIn(false)
-      // navigate('/',{replace:true})
       window.location.href='/'
       console.log('loogedout')
     }
