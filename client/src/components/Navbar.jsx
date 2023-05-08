@@ -16,7 +16,7 @@ function Navbar() {
  const getUser = JSON.parse(localStorage.getItem('user'))
 
  useEffect(()=>{
-  if(token && getUser){
+  if(getUser){
     setLoggedIn(true)
    }
  })

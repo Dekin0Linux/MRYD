@@ -38,7 +38,7 @@ function Bus({bus,index}) {
         <div className='flex-1 '>
             <div className='md:flex gap-5'>
                 <div className='w-32'>
-                    <img src={`http://localhost:4000/images/${bus.bus_name.logo}`} alt={bus.id} className='w-full'/>
+                    <img src={`https://myrydgh.onrender.com/images/${bus.bus_name.logo}`} alt={bus.id} className='w-full'/>
                 </div>
                 <div >
                     <p className='font-bold text-2xl text-blue-600 mb-5'>{bus.bus_name ? bus.bus_name.company_name : ''} | {bus.station_name}</p>
