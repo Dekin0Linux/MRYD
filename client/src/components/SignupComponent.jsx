@@ -52,6 +52,7 @@ function SignupComponent() {
             await axios.post('http://localhost:4000/user/register',data,
             {withCredentials: true,},
             {headers: {Authorization: `Bearer ${token}`}}).then(response=>{
+                localStorage.setItem('user',JSON.stringify(response.data))
                 const userID = response.data._id;
                 const user = {
                     ...booking,

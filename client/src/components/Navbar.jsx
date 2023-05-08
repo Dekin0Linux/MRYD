@@ -4,13 +4,28 @@ import {FaBars} from 'react-icons/fa'
 import {GrClose} from 'react-icons/gr'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
   const [selected,setSelected] = useState(false)
-  const [loggedIn,setLoggedIn] = useState(true)
+  const [loggedIn,setLoggedIn] = useState(false)
+  const navigate = useNavigate('/')
 
-  // const token = Cookies.get('login')
-  // token ? setLoggedIn(true) : false  
+  const token = Cookies.get('login')
+ const getUser = JSON.parse(localStorage.getItem('user'))
+
+ //LOGOUT FUNCTION
+ const logOut  =async ()=>{
+  axios.post('http://localhost:4000/user/logout',{}).then(res=>{
+    if(res.statusText == "OK"){
+      Cookies.remove('login')
+      localStorage.removeItem('user')
+      setLoggedIn(true)
+      navigate('/',{replace:true})
+    }
+  }).catch(err=>console.log(err))
+ }
 
 
   const clicked = ()=>{
@@ -37,6 +52,9 @@ function Navbar() {
                     <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
                     <Link to={'/'}><li className='font-bold'>Home</li></Link>
                     <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
+                    {
+                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white' onClick={logOut}>Logout</li></Link> : ""
+                    }
                     {/* <Link to="/signup"><li className='font-bold'>Create New Account</li></Link> */}
                     {/* <Link to="/"><li className='font-bold'>Login</li></Link> */}
                     
@@ -46,11 +64,12 @@ function Navbar() {
                   <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
                   <Link to={'/'}><li className='font-bold'>Home</li></Link>
                   <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
+                  {
+                      loggedIn ? <Link to="/signup"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white' onClick={logOut}>Logout</li></Link> : ""
+                  }
                   {/* <Link to="/signup"><li className='font-bold'>Create New Account</li></Link> */}
                   {/* <Link to="/login"><li className='font-bold'>Login</li></Link> */}
 
-                  
-                  
                 </ul> 
 
                 }       

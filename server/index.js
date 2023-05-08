@@ -28,9 +28,10 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 
 app.use(cors(
-   { origin: 'http://localhost:5173', // replace with your frontend URL
+   { 
+    origin: 'http://localhost:5173', // replace with your frontend URL
     credentials: true, // enable cookies
-}
+    }
 ))
 
 //cookie parser

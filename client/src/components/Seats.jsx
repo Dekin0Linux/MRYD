@@ -1,14 +1,15 @@
 import React,{useState,useEffect} from 'react'
-import {useDispatch,useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {MdEventSeat} from 'react-icons/md'
 import {GiSteeringWheel} from 'react-icons/gi'
 import { ToastContainer, toast } from 'react-toastify';
 import { nanoid } from 'nanoid'
 import Cookies from 'js-cookie'
+import axios from 'axios';
 
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+
 
 //SEAT INFORMATION COMPOENENT
 export const Selection=({seatType,price,seatColor})=>{
@@ -24,12 +25,12 @@ export const Selection=({seatType,price,seatColor})=>{
 }
 
 function Seats() {
-    const booking = useSelector(state=>state.booking.book)
-    // const search = useSelector(state=>state.search.data)
-    const [busData,setBusData] = useState([])
+    const booking = useSelector(state=>state.booking.book) //GETS BOOKING STATE
+    const [busData,setBusData] = useState([]) //ARRAY FOR GETTING BUS DATA FROM DB
     const navigate = useNavigate()
 
     const token = Cookies.get('login') //getting login token from cookie
+    const getUser = JSON.parse(localStorage.getItem('user')) //geting logged in user form localstorage
 
     const [availSeat,setAvailSeat] = useState() //number of available seat numbers gotten from db
     const [bookedSeats,setBookedSeats] = useState() //array of booked seat numbers gotten from db
@@ -52,6 +53,8 @@ function Seats() {
         if(Object.keys(booking).length <= 0 || isEmptyValues == false){
             navigate('/',{replace:true})
         }
+
+        console.log(getUser)
     },[])    
 
     //notifications
@@ -77,8 +80,6 @@ function Seats() {
                 position : toast.POSITION.TOP_LEFT
             })
         }
-        
-
     };
 
     const totalSeats = booking && booking.totalSeats //totals seats of bus
@@ -109,10 +110,7 @@ function Seats() {
         const updatedChosen = [...chosen, seatNumber];
         setChosen(updatedChosen);
         notify('Seat '+ seatNumber + ' Selected','selected')
-        
-        // Otherwise, book the seat and update the bookedSeats state
-        // console.log(newBookedSeats)
-        
+
     }
 
     //UPDATING PASSENGERS WITH CHOSEN SEATS
@@ -127,8 +125,8 @@ function Seats() {
             currentSeat : total - seatArray.length
         }
         await axios.patch(`http://localhost:4000/bus/updateSeats/${busData._id}`,seatUpdate)
-        .then(resp=>console.log(resp.data))
-        .catch(err=>console.log(err))
+        .then(resp=>(resp.data))
+        .catch(err=>(err))
     }
 
     //ADDING NEW BOOKING TO DB
@@ -142,8 +140,8 @@ function Seats() {
             booking_number: nanoid(8)
         }
         await axios.post(`http://localhost:4000/booking`,bookingData)
-            .then(resp=>console.log(resp)) 
-            .catch(err=>console.log(err))
+            .then(resp=>(resp)) 
+            .catch(err=>(err))
     }
 
     //ADDING PAYMENT INFO TO DB
@@ -156,14 +154,14 @@ function Seats() {
             date : new Date()
         }
         await axios.post(`http://localhost:4000/payment`, data)
-        .then(resp=>console.log(resp.data))
-        .catch(err=>console.log(err))
+        .then(resp=>(resp.data))
+        .catch(err=>(err))
     }
 
 
     //PAYMENT GATEWAY
     const handlePayment = async () => {
-            if(!token){
+            if(!token && !getUser){
                 navigate('/login');
                 return;
             }
@@ -171,7 +169,7 @@ function Seats() {
         // Initialize the Paystack popup with the payment information
             const handler = window.PaystackPop.setup({
                 key: import.meta.env.VITE_REACT_APP_SECRET_KEY,
-                email: booking.email,
+                email: getUser.email,
                 amount: booking.fare * 100,
                 currency: 'GHS',
                 callback: (response) => {

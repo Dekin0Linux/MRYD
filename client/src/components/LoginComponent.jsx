@@ -38,13 +38,15 @@ function LoginComponent() {
             }
             await axios.post('http://localhost:4000/user/login', data ,
             {withCredentials: true,},
-            {headers: {Authorization: `Bearer ${token}`}})
+            {headers: {Authorization: `Bearer ${token}`},}
+            )
             .then(response =>{
-                
                 if(response.data === 'Incorrect Password'){
                     setError('Incorrect Password')
                     setIsActive(true)
+                    return
                 }else{
+                    localStorage.setItem('user',JSON.stringify(response.data))
                     const userID = response.data._id; //gets logged in customer id
                     const userEmail = response.data.email //gets registed customer email
                     //adding to out global state
