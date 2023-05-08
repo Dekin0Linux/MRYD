@@ -12,32 +12,35 @@ function Navbar() {
   const [loggedIn,setLoggedIn] = useState(false)
   const navigate = useNavigate()
 
-  const token = Cookies.get('login')
- const getUser = JSON.parse(localStorage.getItem('user'))
+const token = Cookies.get('login')
+const getUser = JSON.parse(localStorage.getItem('user'))
 
- useEffect(()=>{
-  if(getUser){
-    setLoggedIn(true)
-    return
-    // console.log(token)
-    // console.log("LoggedIN user")
-   }
- })
+//LOGOUT FUNCTION
+const logOut = async ()=>{
+  // axios.post('https://myrydgh.onrender.com/user/logout').then(res=>{
+  //   if(res.statusText == "OK"){
+  //     // Cookies.remove('login') // delete cookie
+  //     localStorage.removeItem('user') //user storage
+  //     setLoggedIn(false)
+  //     console.log(res)
+  //     window.location.href='/'
+  //     console.log('loogedout')
+  //   }
+  // }).catch(err=>console.log(err))
+  localStorage.removeItem('user') //user storage
+}
+
+useEffect(()=>{
+if(getUser){
+  setLoggedIn(true)
+  return
+  // console.log(token)
+  // console.log("LoggedIN user")
+  }
+})
 
 
- //LOGOUT FUNCTION
- const logOut= async ()=>{
-  axios.post('https://myrydgh.onrender.com/user/logout').then(res=>{
-    if(res.statusText == "OK"){
-      // Cookies.remove('login') // delete cookie
-      localStorage.removeItem('user') //user storage
-      setLoggedIn(false)
-      console.log(res)
-      window.location.href='/'
-      console.log('loogedout')
-    }
-  }).catch(err=>console.log(err))
- }
+
 
 
   const clicked = ()=>{

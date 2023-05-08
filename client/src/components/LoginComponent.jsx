@@ -16,7 +16,7 @@ function LoginComponent() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const token = Cookies.get('login')
+    // const token = Cookies.get('login')
 
     const Login = useFormik({
     initialValues:{
@@ -47,6 +47,7 @@ function LoginComponent() {
                     return
                 }else{
                     localStorage.setItem('user',JSON.stringify(response.data)) //set user to local storage
+                    Cookies.get('login') //getting cookie
                     const userID = response.data._id; //gets logged in customer id
                     const userEmail = response.data.email //gets registed customer email
                     //adding to out global state
