@@ -8,9 +8,6 @@ import Cookies from 'js-cookie'
 import {useDispatch,useSelector} from 'react-redux'
 import { addToCart } from '../states/cart/cartReducer'
 
-
-
-
 function SignupComponent() {
     const [error,setError] = useState(null)
     const [isActive,setIsActive] = useState(false)
@@ -18,7 +15,7 @@ function SignupComponent() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const token = Cookies.get('login')
+    // const token = Cookies.get('login')
 
     const signUp = useFormik({
         initialValues:{
@@ -51,7 +48,8 @@ function SignupComponent() {
 
             await axios.post('https://myrydgh.onrender.com/user/register',data,
             {withCredentials: true,},
-            {headers: {Authorization: `Bearer ${token}`}}).then(response=>{
+            // {headers: {Authorization: `Bearer ${token}`}}
+            ).then(response=>{
                 localStorage.setItem('user',JSON.stringify(response.data))
                 const userID = response.data._id;
                 const user = {
@@ -90,10 +88,6 @@ function SignupComponent() {
                         {signUp.touched.lastname && signUp.errors.lastname ? <p className='text-red-600'>{signUp.errors.lastname}</p> : null}
                         <input type="text" placeholder='Last name' name='lastname'  onChange={signUp.handleChange} value={signUp.values.lastname} onBlur={signUp.handleBlur} className='px-3 my-3 py-1 border border-gray-300 w-[100%] outline-0 rounded'/>
                         </div>
-                    
-
-                    
-
                     </div>
                     
 
