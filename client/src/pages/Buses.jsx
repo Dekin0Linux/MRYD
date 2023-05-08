@@ -21,7 +21,7 @@ function Buses() {
 
   //fucntion to run out search 
   const userSearch = async ()=> {
-      await axios.get('https://myryd.onrender.com/bus/search',
+      await axios.get('https://myrydgh.onrender.com/bus/search',
         {params:{
             depature : search.from,
             arrival : search.to,

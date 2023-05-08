@@ -39,7 +39,7 @@ function Seats() {
 
     //getting bus by id from database
     const getBus = async(id) => {
-        let busResponse = await axios.get(`https://myryd.onrender.com/bus/${id}`)
+        let busResponse = await axios.get(`https://myrydgh.onrender.com/bus/${id}`)
         setBusData(busResponse.data)
         setAvailSeat(busResponse.data.available_seats)
         setBookedSeats(busResponse.data.booked_seats)
@@ -123,7 +123,7 @@ function Seats() {
             seat : seatArray,
             currentSeat : total - seatArray.length
         }
-        await axios.patch(`http://localhost:4000/bus/updateSeats/${busData._id}`,seatUpdate)
+        await axios.patch(`https://myrydgh.onrender.com/bus/updateSeats/${busData._id}`,seatUpdate)
         .then(resp=>(resp.data))
         .catch(err=>(err))
     }
@@ -152,7 +152,7 @@ function Seats() {
             refNumber : response.reference,
             date : new Date()
         }
-        await axios.post(`http://localhost:4000/payment`, data)
+        await axios.post(`https://myrydgh.onrender.com/payment`, data)
         .then(resp=>(resp.data))
         .catch(err=>(err))
     }
