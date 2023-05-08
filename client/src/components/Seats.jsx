@@ -160,7 +160,7 @@ function Seats() {
 
     //PAYMENT GATEWAY
     const handlePayment = async () => {
-            if(!token && !getUser){
+            if(!token){
                 navigate('/login');
                 return;
             }
