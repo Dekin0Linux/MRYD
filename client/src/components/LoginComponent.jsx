@@ -46,7 +46,7 @@ function LoginComponent() {
                     setIsActive(true)
                     return
                 }else{
-                    localStorage.setItem('user',JSON.stringify(response.data))
+                    localStorage.setItem('user',JSON.stringify(response.data)) //set user to local storage
                     const userID = response.data._id; //gets logged in customer id
                     const userEmail = response.data.email //gets registed customer email
                     //adding to out global state
@@ -55,7 +55,7 @@ function LoginComponent() {
                         customerId : userID,
                         email : userEmail
                     }
-                    dispatch(addToCart(user)) //dipatch data to state
+                    dispatch(addToCart(user)) //dispatch data to state
                     navigate('/seat',{replace:true})
                 }
             }).catch(err=>{console.log(err) })
