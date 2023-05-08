@@ -67,7 +67,7 @@ const loginUser = async(req,res)=>{
                 return res.send('Incorrect Password').status(401);
             }
             const userToken = token(user._id) //setting jwt token id
-            res.cookie('login',userToken,{httpOnly:true}) //, maxAge: 3*24*60*60
+            res.cookie('login',userToken,{httpOnly:true,sameSite: 'none',secure: true}) //, maxAge: 3*24*60*60
             return res.status(200).json(user);
         });
         
