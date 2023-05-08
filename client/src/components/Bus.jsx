@@ -34,7 +34,7 @@ function Bus({bus,index}) {
 
 
   return (
-    <div className='md:flex justify-between bg-white p-5 shadow-lg md:my-8 my-4 rounded-lg mx-2 md:mx-0 border-blue-400 border-[3px]'>
+    <div className='md:flex justify-between bg-white p-5 shadow-lg md:my-8 my-4 rounded-lg md:mx-0 border-blue-400 border-[3px]'>
         <div className='flex-1 '>
             <div className='md:flex gap-5'>
                 <div className='w-32'>
@@ -42,8 +42,7 @@ function Bus({bus,index}) {
                 </div>
                 <div >
                     <p className='font-bold text-2xl text-blue-600 mb-5'>{bus.bus_name ? bus.bus_name.company_name : ''} | {bus.station_name}</p>
-                    {/* {console.log(bus.bus_name.logo)} */}
-                    <div className='flex items-center gap-5'>
+                    <div className='flex items-center gap-5 flex-wrap'>
                         <span className='inline-flex items-center bg-orange-400 gap-2 px-2 rounded-lg text-white text-semibold'><FaStar color='white'/> {bus.rating}</span>
                         <span className='inline-flex items-center' >{bus.bus_type}  |</span>
                         <span className='inline-flex items-center gap-2 font-bold text-red-700'><MdOutlineAirlineSeatReclineExtra/>{bus.available_seats} seats left</span>
@@ -51,7 +50,7 @@ function Bus({bus,index}) {
                     <small className='font-bold'>Bus Number : {bus.bus_number}</small>
                 </div>
             </div>
-            <div className='flex gap-5 md:my-6 my-4'>
+            <div className='flex gap-5 md:my-6 my-4 flex-wrap md:flex-nowrap'>
                 <div>
                     <small>Depature</small>
                     <p className="font-bold">{bus.depature_time}</p>

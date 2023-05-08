@@ -220,13 +220,13 @@ function Seats() {
     return (
         <>
          {/* md:flex justify-center */}
-            <div className='container mx-auto md:w-[60%] p-5' >
+            <div className='container mx-auto lg:w-[60%] p-5 ' >
                 <ToastContainer/>
                 
-                <div className='md:flex md:gap-5 mx-5'>
+                <div className='flex md:gap-5 mx-5 flex-wrap'>
                     
                     {/* seats */}
-                    <div className='flex-1 mb-5 border p-4'>
+                    <div className='flex-1 mb-5 border p-4 order-2 md:order-2'>
                         <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
                         <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5`}>
                             {seatComponents}
@@ -234,7 +234,7 @@ function Seats() {
                     </div>
 
                     {/* seats info */}
-                    <div className='w-[50%] md:w-auto'>
+                    <div className='w-[100%] md:w-auto '>
                         <p className='font-bold mb-3'>Seat Information </p>
                         <div className='my-5 flex flex-wrap'>
                             {chosen && chosen.map((seat,index)=>(<b className='bg-green-600 p-2 text-white mr-1' key={index}> {seat} </b>))}
@@ -248,7 +248,7 @@ function Seats() {
                         <div className='text-center'>
                             {
                                 chosen.length == person ?
-                                <button onClick={handlePayment} className='bg-green-400 px-12 py-2 rounded shadow-lg text-white font-bold hover:bg-green-600'>{loading ? 'Processing payment...' : 'Pay now'}</button> : ""
+                                <button onClick={handlePayment} className='bg-green-400 px-12 py-2 rounded shadow-lg text-white font-bold hover:bg-green-600 w-full md:w-auto'>{loading ? 'Processing payment...' : 'Pay now'}</button> : ""
                             }
                         </div>
                     </div>
