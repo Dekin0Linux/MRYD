@@ -18,6 +18,7 @@ function Navbar() {
  useEffect(()=>{
   if(token || getUser){
     setLoggedIn(true)
+    console.log(token)
     console.log("LoggedIN user")
    }
  })
@@ -25,13 +26,14 @@ function Navbar() {
 
  //LOGOUT FUNCTION
  const logOut= async ()=>{
-  axios.post('https://myrydgh.onrender.com/user/logout',{}).then(res=>{
+  axios.post('https://myrydgh.onrender.com/user/logout').then(res=>{
     if(res.statusText == "OK"){
-      Cookies.remove('login')
-      localStorage.removeItem('user')
+      Cookies.remove('login') // delete cookie
+      localStorage.removeItem('user') //user storage
       setLoggedIn(false)
       window.location.href='/'
       console.log('loogedout')
+      console.log(res)
     }
   }).catch(err=>console.log(err))
  }
