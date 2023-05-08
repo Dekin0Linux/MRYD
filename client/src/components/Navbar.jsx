@@ -18,6 +18,7 @@ function Navbar() {
  useEffect(()=>{
   if(token && getUser){
     setLoggedIn(true)
+    console.log("LoggedIN user")
    }
  })
 
