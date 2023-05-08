@@ -67,11 +67,9 @@ const loginUser = async(req,res)=>{
                 return res.send('Incorrect Password').status(401);
             }
             const userToken = token(user._id) //setting jwt token id
-            res.cookie('login',userToken,{httpOnly:true,sameSite: 'none',secure: true}) //, maxAge: 3*24*60*60
+            res.cookie('login',userToken,{httpOnly:true}) //, maxAge: 3*24*60*60 //,sameSite: 'none',secure: true
             return res.status(200).json(user);
         });
-        
-        
 }
 
 
@@ -91,9 +89,7 @@ const resetPassword = async(req,res)=>{
         res.json({msg:"Password Updated"})
     }catch(err){
         res.status(500).json({ error: 'Server error' });
-    }
-    
-    
+    } 
 }
 
 
