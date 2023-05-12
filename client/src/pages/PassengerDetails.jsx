@@ -22,6 +22,8 @@ export const PriceBar = ({booking,userSearch})=>{
 
 
 function PassengerDetails() {
+
+
   const booking = useSelector(state=>state.booking.book) // user selected bus global state
   const search = useSelector(state=>state.search.data) //users search data global state
   const navigate = useNavigate()
@@ -55,8 +57,9 @@ function PassengerDetails() {
       ...booking,
       passenger: passengersData
     }
+    console.log(passengersData)
     dispatch(addToCart(passengers))
-    navigate('/seat')
+    // navigate('/seat')
   }
 
   // function outputting the number of forms depending on number of persons

@@ -6,10 +6,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-
-
 const MySwal = withReactContent(Swal)
-
 
 function Buses() {
   const [buses,setBuses] = useState([]) // array to keep available buses
@@ -35,7 +32,7 @@ function Buses() {
       .catch(err=>{
         MySwal.fire({
           title : <h2>Sever Error</h2>,
-          text : 'Sorry , We have trouble with our server',
+          text : 'Sorry , We have trouble connection to our server',
           icon : 'error'
         })
       })
@@ -78,7 +75,7 @@ function Buses() {
           ))
           :
           (<div className='text-center'>
-              <p className='text-center font-bold p-5 text-3xl text-red-600'>{loading ? 'Loading !!!':'No buses'}</p>
+              <p className='text-center font-bold p-5 text-3xl text-red-600'>{loading ? 'Loading !!!':'No buses for this location'}</p>
               <button className='px-3 py-1 bg-blue-700 text-white rounded' onClick={()=>navigate('/')}>Search Again</button>
             </div>
           )

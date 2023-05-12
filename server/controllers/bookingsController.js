@@ -2,7 +2,7 @@ const BookingModel = require('../models/bookingModel')
 
 const getAllBooking = async(req,res)=>{
     try{
-        const allBooking = await BookingModel.find() //populate('customer_id' this is the key /property name of our id ref)
+        const allBooking = await BookingModel.find().populate('customer_id') // this is the key /property name of our id ref
         if(!allBooking){
             return res.json({msg:"No booking available"}).status(500)
         }
@@ -39,7 +39,6 @@ const getSingleBooking = async(req,res)=>{
     }
 }
 
-
 const newBooking = async(req,res)=>{
     const bookingData = req.body
     try{
@@ -66,7 +65,6 @@ const updateBooking = async (req,res)=>{
     }catch(err){
         res.json({msg: err.message}).status(500)
     }
-
 }
 
 

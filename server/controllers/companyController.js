@@ -31,10 +31,11 @@ const getSingleCompany = async(req,res)=>{
 
 const addNewCompany = async (req,res)=>{
     try{
-        const fileName = req.file
-        //hashing password
+        const fileName = req.file //IMAGE FILE NAME
+        //HASHING PASSWORD
         const salt = await  bcrypt.genSalt(10)
         const hashPassword =await  bcrypt.hash(req.body.password,salt)
+
         const registerCompany = await new companyModel({
             company_name : req.body.name,
             email : req.body.email,
@@ -44,10 +45,10 @@ const addNewCompany = async (req,res)=>{
             phone : req.body.phone
         })
         if(!registerCompany) {
-            return res.json({msg:"We couldnt resgiter you"})
+            return res.json({msg:"We couldn't resgiter you"})
         }
         await registerCompany.save()
-        res.json({msg:"Account Created"})
+        res.json({msg:"Account Created"}).status(200)
     }catch(err){
         res.json({msg :"This Email is registed already"})
     }
@@ -55,7 +56,7 @@ const addNewCompany = async (req,res)=>{
 
 
 const loginCompany = async(req,res)=>{
-    //get use input
+    //get user input
     const {email,password} = req.body
     const company = await companyModel.findOne({email : email})
 
@@ -66,7 +67,6 @@ const loginCompany = async(req,res)=>{
     const passwordMatch = await bcrypt.compare(password, company.password);
     if (passwordMatch) {
         return res.status(200).json({ message: 'Login successful' });
-        res.redirect('/payment')
     }
     return res.status(401).json({ message: 'Incorrect password' });
 }
@@ -96,6 +96,7 @@ const updateCompany = async(req,res)=>{
         const {id} = req.params //getting bus ID
         const newUpdate = req.body //getting newly updated data
         const fileName = req.file //image file name
+        
         const updateCompany = await companyModel.findByIdAndUpdate(id,{
             company_name: newUpdate.name,
             email : newUpdate.email,

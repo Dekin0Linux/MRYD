@@ -5,15 +5,40 @@ import {useDispatch,useSelector} from 'react-redux'
 import { setSearch } from '../states/searchReducer/reducer';
 import * as Yup from 'yup'
 import { ToastContainer, toast } from 'react-toastify';
+import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function SearchInput() {
+  const [fromLocation,setFromLocation] = useState([])
+  const [toLocation,setToLocation] = useState([])
   
-  const fromCities = ['accra','kumasi', 'tamale','sunyani']
-  const toCities = ['accra','kumasi', 'tamale','sunyani']
+  // const fromCities = ['accra','kumasi', 'tamale','sunyani']
+  // const toCities = ['accra','kumasi', 'tamale','sunyani']
 
   // const search = useSelector(state=>state.search)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const getLocations=async()=>{
+    await axios.get('https://myrydgh.onrender.com/bus')
+    .then(resp => {
+      if(resp.status == 200){
+        let fromStations = (resp.data.map(station=>station["depature_loc"]))
+        let arrivalStations = (resp.data.map(station=>station["arrival_loc"]))
+        let filterFromLoc = [...new Set(fromStations)]
+        let filterToLoc = [...new Set(arrivalStations)]
+        setFromLocation(filterFromLoc)
+        setToLocation(filterToLoc)
+
+        // console.log(location)
+      }
+    }).catch(err=>console.log(err))
+  }
+
+  useEffect(()=>{
+    getLocations()
+  },[])
 
   //notifications
   const notify = (msg,type) => {
@@ -22,7 +47,6 @@ function SearchInput() {
             position: toast.POSITION.BOTTOM_RIGHT
         });
     }
-  
 };
 
   // formik
@@ -73,7 +97,7 @@ function SearchInput() {
                 onBlur={formik.handleBlur}>
                     <option>From Station</option>
                     {
-                      fromCities.map((city,index) => (
+                      fromLocation.map((city,index) => (
                         <option value={city} key={index} className='capitalize '>{city}</option>
                       ))
                     }
@@ -96,7 +120,7 @@ function SearchInput() {
                 onBlur={formik.handleBlur}>
                     <option >To Station</option>
                     {
-                      toCities.map((city,index) => (
+                      toLocation.map((city,index) => (
                         <option value={city} key={index} className='captialize'>{city}</option>
                       ))
                     }

@@ -36,6 +36,8 @@ const busSchema = mongoose.Schema({
 
 },{timestamps:true})
 
+
+
 busSchema.pre('save', function(next) {
   this.available_seats = this.total_seats - this.booked_seats.length;
   next();
@@ -46,25 +48,6 @@ busSchema.pre('save', function(next) {
  const BusModel = mongoose.model('bus',busSchema)
 
  module.exports = BusModel;
-
-
-//all dates
-// const daysOfYear = [];
-// const year = new Date().getFullYear();
-// for (let i = 0; i < 365; i++) {
-//   const date = new Date(year, 0, i + 1);
-//   const isoDate = date.toISOString().slice(0, 10);
-//   daysOfYear.push(isoDate);
-// }
-
-// Set the availability to all the days of the year
-// const newBusModel = mongoose.model('newBus', newBusSchema);
-// const newBus = new newBusModel({
-//   name: "Bus 1",
-//   origin: "City A",
-//   destination: "City B",
-//   availability: daysOfYear,
-// });
 
 
 

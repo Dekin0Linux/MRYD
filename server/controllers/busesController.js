@@ -3,11 +3,11 @@ const BusModel = require('../models/busesModel')
 
 const getAllbuses = async (req,res)=>{
     try{
-        const allusers = await BusModel.find().populate('bus_name','company_name')
-        if(!allusers){
+        const allBuses = await BusModel.find().populate('bus_name','company_name')
+        if(!allBuses){
             return res.status(500).json({msg:"No Buses Availble"})
         }
-        res.json(allusers)
+        res.json(allBuses)
     }catch(err){
         res.json({msg:err.message})
     }  
@@ -28,6 +28,7 @@ const getSingleBus = async(req,res)=>{
 }
 
 
+//UPDATING THE SEATS 
 const newSeat = async(req,res)=>{
     try{
     const {id} = req.params

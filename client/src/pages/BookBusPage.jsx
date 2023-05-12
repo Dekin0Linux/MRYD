@@ -1,8 +1,11 @@
 import React from 'react'
+import Booking from '../components/Booking'
 
 function BookBusPage() {
   return (
-    <div>BookBusPage</div>
+    <div>
+      <Booking/>
+    </div>
   )
 }
 

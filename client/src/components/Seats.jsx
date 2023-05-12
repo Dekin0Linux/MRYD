@@ -47,9 +47,8 @@ function Seats() {
 
     useEffect(()=>{
         getBus(booking.busId)
-        //IF OUT GLOBAL STATES HAVE EMPTY KEYS
+        //IF OUR GLOBAL STATES HAVE EMPTY KEYS
         const isEmptyValues = Object.values(booking).every((value)=>value)
-        // alert(isEmptyValues)
         if(Object.keys(booking).length <= 0 || isEmptyValues == false){
             navigate('/',{replace:true})
         }
@@ -228,6 +227,7 @@ function Seats() {
                     {/* seats */}
                     <div className='flex-1 mb-5 border p-4 order-2 md:order-2'>
                         <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
+
                         <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5`}>
                             {seatComponents}
                         </div>
