@@ -13,7 +13,7 @@ function Success() {
         <div className='text-center'>
           <img src={gif} alt="" />
           <p className='font-semibold text-xl text-green-600'>Booking Successful</p>
-          <p>Your ticket info would be sent to your email</p>
+          <p>Your ticket detail would be sent to your email !</p>
           <hr className='my-5'/>
           <div>
             {/* <p>Booking # : </p> */}
