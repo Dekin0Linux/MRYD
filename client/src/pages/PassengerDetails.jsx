@@ -59,7 +59,7 @@ function PassengerDetails() {
     }
     console.log(passengersData)
     dispatch(addToCart(passengers))
-    // navigate('/seat')
+    navigate('/seat')
   }
 
   // function outputting the number of forms depending on number of persons
