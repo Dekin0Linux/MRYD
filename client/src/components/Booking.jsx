@@ -69,8 +69,7 @@ function Booking() {
                     <p>Station Name : <span className='font-bold text-blue-500'>VVIP</span></p>
                 
                 </div>
-                <div className='my-5 overflow-auto h-[65vh]'>
-                    
+                <div className='my-5 overflow-auto lg:h-[65vh]'>
                     
                     <Ticket/>
                     <Ticket/>
