@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
-import {FaTrash} from 'react-icons/fa'
 
 
 function PassengerForm({num,handlePassengerData}) {
     const titles = ['Mr','Mrs','Miss','Dr'] //title
 
+     //STATES
+    const [title,setTitle] = useState('')
+    const [fullname,setFullname] = useState('')
+    const [phone,setPhone] = useState('')
+    const [pickup,setPickup] = useState('')
+
     const Luggage = [
         { name: 'Ghana Must go(Big)', price: 30, quantity: 1 },
-        { name: 'Big Bag(40)', price: 20, quantity: 1 }
+        { name: 'Big Bag(40)', price: 20, quantity: 1 },
+        { name: 'Tv', price: 25, quantity: 1 },
+        { name: 'Small bag', price: 10, quantity: 1 },
+        { name: 'Mini Bag', price: 12 , quantity: 1 }
     ];
 
     const pickUpLocation = [
@@ -17,38 +25,32 @@ function PassengerForm({num,handlePassengerData}) {
     ]
 
     const [selectCount, setSelectCount] = useState(0);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
-  const handleAddLuggage = () => {
-    if(selectCount <= 2){
-        setSelectCount(prevCount => prevCount + 1);
-        setSelectedOptions(prevSelectedOptions => [...prevSelectedOptions]);
-    }else{
-        alert("You can add 3 luggage bags");
-        return
-    }
-    
-  };
+    //HANDLE OUTPUTTING OF LUGGAGE WHEN USER CLICKS
+    const handleAddLuggage = () => {
+        if(selectCount <= 2){
+            setSelectCount(prevCount => prevCount + 1);
+            setSelectedOptions(prevSelectedOptions => [...prevSelectedOptions]);
+        }else{
+            alert("You can't add 3 luggage bags");
+            return
+        }
+    };
 
-const handleDelete = (selectIndex) => {
-setSelectedOptions(prevSelectedOptions => {
-    const updatedSelectedOptions = [...prevSelectedOptions];
-    updatedSelectedOptions.splice(selectIndex, 1);
-    setSelectCount(prevCount => prevCount - 1);
-    return updatedSelectedOptions;
-    // setSelectedOptions(...updatedSelectedOptions)
-});
-};
+    //HANDLING DELETING OF LUGGAGE
+    // const handleDelete = (selectIndex) => {
+    //     setSelectedOptions(prevSelectedOptions => {
+    //         const updatedSelectedOptions = [...prevSelectedOptions];
+    //         updatedSelectedOptions.splice(selectIndex, 1);
+    //         return updatedSelectedOptions;
+    //     });
+    //     setSelectCount(prevCount => prevCount - 1);
 
-
-    //STATES
-    const [title,setTitle] = useState('')
-    const [fullname,setFullname] = useState('')
-    const [phone,setPhone] = useState('')
-    const [pickup,setPickup] = useState('')
+    // };
 
 
-
+    //HANDLE INPUT CHANGE
     const handleFormChange=(e,index)=>{
         const {name,value} = e.target
         // update state based on input name attribute
@@ -80,15 +82,26 @@ setSelectedOptions(prevSelectedOptions => {
                 const quantity = parseInt(value);
                     setSelectedOptions(prevSelectedOptions => {
                     const updatedSelectedOptions = [...prevSelectedOptions];
-                    updatedSelectedOptions[index].quantity = quantity;
+                    updatedSelectedOptions[index].quantity = parseInt(quantity);
                     return updatedSelectedOptions;
                 });
                 break;
+            
+            case "delete":
+                setSelectedOptions(prevSelectedOptions => {
+                    const updatedSelectedOptions = [...prevSelectedOptions];
+                    updatedSelectedOptions.splice(index, 1);
+                    return updatedSelectedOptions;
+                });
+                setSelectCount(prevCount => prevCount - 1);
+                break;
+                
             default:
                 break;
         }
 
-         // update parent state with passenger data
+        console.log(selectedOptions)
+
         handlePassengerData(num, {
             title,
             fullname,
@@ -100,6 +113,8 @@ setSelectedOptions(prevSelectedOptions => {
 
     }
 
+     // update parent state with passenger data
+     
 
 
   return (
@@ -118,7 +133,7 @@ setSelectedOptions(prevSelectedOptions => {
                 </select>
             </div>
             <div className='my-2'>
-                <label htmlFor="">Full Name</label><br />
+                <label htmlFor="">Full Name {fullname}</label><br />
                 <input type="text" name='fullname' value={fullname} onChange={handleFormChange} placeholder='Enter' className='my-1 border border-slate-400 md:w-60 w-full px-4 py-2 capitalize' required/>
             </div>
 
@@ -152,29 +167,32 @@ setSelectedOptions(prevSelectedOptions => {
                 <label htmlFor="">Luggage {index + 1}</label> <br />
                 <select
                     name='luggage'
-                    value={selectedOptions[index]?.name || ''}
+                    value={selectedOptions[index]?.name}
+                    required
                     onChange={event => handleFormChange(event, index)}
                     className='my-1 border md:w-60 w-40 px-30 py-1 border-slate-400 bg-white rounded'
                 >
                     <option value="" className='py-2'>Select Luggage</option>
-                    <hr  />
                     {Luggage.map(item => (
                     <option key={item.name} value={item.name}>
-                        {item.name} --- (GH{item.price})
+                        {item.name} --- (Price : GH{item.price})
                     </option>
                     ))}
                 </select>
+
                 <input
                     type="number"
                     name='quantity'
-                    value={selectedOptions[index]?.quantity || ''}
+                    value={selectedOptions[index]?.quantity || 1}
                     onChange={event => handleFormChange(event, index)}
-                    // disabled={!selectedOptions[index]}
-                    min="1"
+                    disabled={!selectedOptions[index]}
+                    min={1}
+                    max={3}
+                    maxLength={1}
                     required
                     className='my-1 border border-slate-400 md:w-20 w-3 px-4 py-1 rounded mx-1'
                 />
-                <button onClick={()=>handleDelete(selectedOptions[index])} className='my-1 border-0 md:w-10 px-3 py-1 rounded bg-red-600 text-white '>X</button>
+                <button name='delete' onClick={(e)=>handleFormChange(e,selectedOptions[index])} className='my-1 border-0 md:w-10 px-3 py-1 rounded bg-red-600 text-white '>X</button>
                 </div>
             ))}
             </div>

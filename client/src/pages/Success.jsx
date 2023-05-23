@@ -1,6 +1,6 @@
 import React from 'react'
-// import ticket from '../assets/busticket.png'
-import {BsFillCheckCircleFill} from 'react-icons/bs'
+
+
 import { useNavigate } from 'react-router-dom'
 import gif from '../assets/gifSuccess.gif'
 
@@ -10,7 +10,7 @@ function Success() {
   return (
     <div className=' flex justify-center w-full'>
       <div className='md:flex lg:gap-10 gap-y-20 py-5'>
-        <div className='text-center'>
+        <div className='text-center px-2'>
           <img src={gif} alt="" />
           <p className='font-semibold text-xl text-green-600'>Booking Successful</p>
           <p>Your ticket detail would be sent to your email !</p>

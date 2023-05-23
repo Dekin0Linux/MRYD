@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import {MdEventSeat} from 'react-icons/md'
 import {GiSteeringWheel} from 'react-icons/gi'
 import { ToastContainer, toast } from 'react-toastify';
-import { nanoid } from 'nanoid'
+import { customAlphabet } from 'nanoid'
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
@@ -29,7 +29,7 @@ function Seats() {
     const [busData,setBusData] = useState([]) //ARRAY FOR GETTING BUS DATA FROM DB
     const navigate = useNavigate()
 
-    const token = Cookies.get('login') //getting login token from cookie
+    //const token = Cookies.get('login') //getting login token from cookie
     const getUser = JSON.parse(localStorage.getItem('user')) //geting logged in user form localstorage
 
     const [availSeat,setAvailSeat] = useState() //number of available seat numbers gotten from db
@@ -108,13 +108,14 @@ function Seats() {
         const updatedChosen = [...chosen, seatNumber];
         setChosen(updatedChosen);
         notify('Seat '+ seatNumber + ' Selected','selected')
-
     }
 
-    //UPDATING PASSENGERS WITH CHOSEN SEATS
+    //UPDATING PASSENGERS DATA WITH CHOSEN SEATS
     let currentPassenger = booking.passenger ? booking.passenger.map((passenger,index)=>{
-        return {...passenger, seat: chosen[index]}
-    }):navigate('/',{replace:true})
+        return {...passenger, seat: chosen[index]} //ADDING SEAT KEY WITH VALUE
+    }):(navigate('/',{replace:true}))
+
+
 
     //update bdseats function
     const dbSeatUpdates = async(seatArray,total)=>{
@@ -129,16 +130,20 @@ function Seats() {
 
     //ADDING NEW BOOKING TO DB
     const addNewBooking = async(response)=>{
+        const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        const nanoid = customAlphabet(alphabet, 8) //GENERATES 8 
         const bookingData = {
             bus_id:busData._id,
             customer_id : booking.customerId,
             passengers: currentPassenger,
             booking_status:response.status,
             price: booking.fare ,
-            booking_number: nanoid(8)
+            booking_number: nanoid()
         }
         await axios.post(`https://myrydgh.onrender.com/booking`,bookingData)
-            .then(resp=>(resp)) 
+            .then(resp=>{
+                sessionStorage.setItem('bookingID',JSON.stringify(resp.data.booking_number))
+            }) 
             .catch(err=>(err))
     }
 
@@ -175,9 +180,9 @@ function Seats() {
                             const myseat = chosen;
                             const allSeats = totalSeats
 
-                            dbSeatUpdates(myseat,allSeats)
-                            addNewBooking(response)
-                            addPaymentInfo(response)
+                            dbSeatUpdates(myseat,allSeats) // run seat update
+                            addNewBooking(response) //run adding new booking
+                            addPaymentInfo(response) //run payment addition
 
                             setLoading(false)
                             navigate('/success', { replace: true })

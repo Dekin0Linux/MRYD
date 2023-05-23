@@ -33,8 +33,10 @@ const newSeat = async(req,res)=>{
     try{
     const {id} = req.params
     const bookedSeat = req.body.seat //array of user selected seats
-    const currentSeat = req.body.currentSeat //setting updated seats value to this(prevSeat - current seat)
-    await BusModel.findByIdAndUpdate(id, { $push: { booked_seats: {$each : bookedSeat } },$set:{available_seats : currentSeat} }, { new: true })
+    //const currentSeat = req.body.currentSeat //setting updated seats value to this(prevSeat - current seat)
+
+    //,$set:{available_seats : currentSeat} 
+    await BusModel.findByIdAndUpdate(id, { $push: { booked_seats: {$each : bookedSeat }}}, { new: true })
         .then(() => {
         res.json({msg:"Seat updated"});
         })
