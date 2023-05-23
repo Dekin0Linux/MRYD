@@ -12,7 +12,7 @@ const {
 router.get('/',getAllBooking)
 
 //getting booking by pin
-router.get('/book',getBookingByPin)
+router.post('/book',getBookingByPin)
 
 //getting a single booking
 router.get('/:id',getSingleBooking)

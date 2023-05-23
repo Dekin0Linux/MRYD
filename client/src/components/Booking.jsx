@@ -1,11 +1,23 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Ticket from './Ticket'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
+import axios from 'axios'
 
 
 
 function Booking() {
+    const [ticket,setTicket] = useState({})
+    const [ticketId,setTicketID] = useState('')
+
+
+    const handleTicketSubmit= async(e)=>{
+        e.preventDefault()
+        await axios.post('https://myrydgh.onrender.com/booking/book',{pin:ticketId})
+        .then((resp)=>console.log(resp.data))
+        .catch(err=>console.log(err))
+        
+    }
 
     const ticketDownload=()=>{
             const captureScreen = document.querySelector('.tickets')
@@ -44,10 +56,16 @@ function Booking() {
   return (
     <div className='h-[80vh] md:p-10 p-5 flex flex-wrap'>
         <div className='md:w-1/2 w-full mb-5'>
-            <form>
+            <form onSubmit={handleTicketSubmit}>
                 <label htmlFor="" className='font-bold'>Enter booking Number</label> <br />
-                <input type="text" className='lg:w-1/2 w-full p-2 shadow border-blue-400 border-2 my-1' /> <br />
-                <button type="button" className='md:w-40 w-full rounded font-semibold shadow-md p-2 bg-blue-400 my-1 text-white'>Search</button>
+                <input type="text" 
+                value={ticketId}
+                className='lg:w-1/2 w-full p-2 shadow border-blue-400 border-2 my-1' 
+                onChange={(e)=>setTicketID(e.target.value)}
+                
+                /> <br />
+
+                <button type="submit" className='md:w-40 w-full rounded font-semibold shadow-md p-2 bg-blue-400 my-1 text-white'>Search</button>
             </form>
         </div>
 
