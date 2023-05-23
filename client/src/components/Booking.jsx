@@ -32,8 +32,8 @@ function Booking() {
                 unit: 'mm',
                 format: [pdfWidth, pdfHeight],
             });
-            
-            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth*scale , pdfHeight*scale)
+
+            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth , pdfHeight)
             doc.save('ticket.pdf')
 
         })
