@@ -8,26 +8,31 @@ import jsPDF from 'jspdf'
 function Booking() {
 
     const ticketDownload=()=>{
-        const captureScreen = document.querySelector('.tickets')
-        //CAPTURE SCREEN
-        html2canvas(captureScreen).then((canvas)=>{
-            const imgData = canvas.toDataURL('img/png')
+            const captureScreen = document.querySelector('.tickets')
+            //CAPTURE SCREEN
+            html2canvas(captureScreen).then((canvas)=>{
+                const imgData = canvas.toDataURL('img/png')
 
-        // CALCULATE ASPECT RATIO
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const aspectRatio = imgWidth / imgHeight;
-
-        // CALCULATE SCALED DIMENSIONS
-        const pdfWidth = 210; // A4 width in mm
-        const pdfHeight = pdfWidth / aspectRatio;
-        const scale = 1.0; // Adjust the scale factor as needed
+            // CALCULATE ASPECT RATIO
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const aspectRatio = imgWidth / imgHeight;
 
 
+            // CALCULATE SCALED DIMENSIONS
+            const maxPdfWidth = 210; // Maximum width in mm
+            const maxPdfHeight = 297; // Maximum height in mm (A4 height)
+            const pdfWidth = Math.min(maxPdfWidth, maxPdfHeight * aspectRatio);
+            const pdfHeight = pdfWidth / aspectRatio;
 
 
             //CREATING PDF FILE
-            const doc = new jsPDF('p','mm','a4')
+            const doc = new jsPDF({
+                orientation: imgWidth > imgHeight ? 'landscape' : 'portrait',
+                unit: 'mm',
+                format: [pdfWidth, pdfHeight],
+            });
+            
             doc.addImage(imgData, 'PNG', 0, 0, pdfWidth*scale , pdfHeight*scale)
             doc.save('ticket.pdf')
 
@@ -62,7 +67,6 @@ function Booking() {
 
             <div className='border-dashed border-2 p-2 rounded-lg tickets'>
                 <div className='flex flex-wrap md:gap-10 gap-x-5 gap-y-2'>
-
                     <p>Booking # : <span className='font-bold text-blue-500'>OMI2g2My</span> </p>
                     <p>Status  : <span className='font-bold text-blue-500'>Succes</span></p>
                     <p>Bus # : <span className='font-bold text-blue-500'>AG-2033-23</span></p>
@@ -70,7 +74,6 @@ function Booking() {
                 
                 </div>
                 <div className='my-5 overflow-auto lg:h-[65vh]'>
-                    
                     <Ticket/>
                     <Ticket/>
                 </div>
