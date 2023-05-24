@@ -24,6 +24,7 @@
     "react-router-dom": "^6.10.0",
     "react-scroll": "^1.8.9",
     "react-toastify": "^9.1.2",
+    "rsuite": "^5.34.0",
     "sweetalert2": "^11.7.5",
     "sweetalert2-react-content": "^5.0.7",
     "swiper": "^9.2.4",

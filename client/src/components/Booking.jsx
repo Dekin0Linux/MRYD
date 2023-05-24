@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import Ticket from './Ticket'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
@@ -15,7 +15,6 @@ function Booking() {
         e.preventDefault()
         await axios.post('https://myrydgh.onrender.com/booking/book',{pin:ticketId})
         .then((resp)=>{
-            console.log(resp.data)
             setTicket(resp.data)
         })
         .catch(err=>console.log(err))
@@ -58,7 +57,7 @@ function Booking() {
 
   return (
     <div className='h-[80vh] md:p-10 p-5 flex flex-wrap'>
-        <div className='md:w-1/2 w-full mb-5'>
+        <div className='md:w-1/2 w-full mb-5 static'>
             <form onSubmit={handleTicketSubmit}>
                 {ticket.price}
                 <label htmlFor="" className='font-bold'>Enter booking Number</label> <br />
@@ -75,8 +74,8 @@ function Booking() {
 
         {
             ticket.length > 0 && (
+                <div className='md:w-1/2 w-full md:p-5'>
 
-                <div className='md:w-1/2 w-full md:p-3'>
                     <div className='flex justify-between items-center my-2'>
                         <p className='font-bold'>TICKETS</p>
                         <button 
@@ -87,15 +86,35 @@ function Booking() {
                         </button>
                     </div>
 
-                    <div className='border-dashed border-2 p-2 rounded-lg tickets'>
-                        <div className='flex flex-wrap md:gap-10 gap-x-5 gap-y-2'>
-                            <p>Booking # : <span className='font-bold text-blue-500'>{ticket[0].booking_number}</span> </p>
-                            <p>Status  : <span className='font-bold text-blue-500 capitalize'>{ticket[0].booking_status}</span></p>
-                            <p>Bus # : <span className='font-bold text-blue-500'>{ticket[0].bus_id.bus_number}</span></p>
-                            <p>Station Name : <span className='font-bold text-blue-500'>{ticket[0].bus_id.station_name}</span></p>
+                    <div className='border-dashed border-2 md:p-5 p-2 rounded-lg tickets'>
+                        <div className='flex flex-wrap md:gap-10 gap-x-10 gap-y-7'>
+                            <div>
+                                <p>Booking # </p>  
+                                <span className='font-bold text-blue-500'>{ticket[0].booking_number}</span> 
+                            </div>
+
+                            <div>
+                                <p>Status  : </p> 
+                                <span 
+                                className='font-bold text-blue-500 capitalize'>
+                                    {ticket[0].booking_status}
+                                </span>
+                            </div>
+
+
+                            <div>
+                                <p>Bus # :</p>
+                                <span className='font-bold text-blue-500'>{ticket[0].bus_id.bus_number}</span>
+                            </div>
+
+
+                            <div>
+                                <p>Station Name :</p>
+                                <span className='font-bold text-blue-500'>{ticket[0].bus_id.station_name}</span>
+                            </div>
                         
                         </div>
-                        <div className='my-5 overflow-auto lg:h-[65vh]'>
+                        <div className='my-5 overflow-auto'>
                             {
                                 ticket[0].passengers.map((passenger,index)=>(
                                     <Ticket passenger={passenger} ticket={ticket}/>

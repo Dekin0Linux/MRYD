@@ -8,10 +8,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Loading from './Loading';
 
 function SearchInput() {
   const [fromLocation,setFromLocation] = useState([])
   const [toLocation,setToLocation] = useState([])
+  const [loading,setLoading] = useState(true)
   
   // const fromCities = ['accra','kumasi', 'tamale','sunyani']
   // const toCities = ['accra','kumasi', 'tamale','sunyani']
@@ -30,6 +32,7 @@ function SearchInput() {
         let filterToLoc = [...new Set(arrivalStations)]
         setFromLocation(filterFromLoc)
         setToLocation(filterToLoc)
+        setLoading(false)
 
         // console.log(location)
       }
@@ -67,8 +70,6 @@ function SearchInput() {
     }),
 
     onSubmit:(values)=>{
-      
-
       if(values.from === values.to){
         notify('Invalid location','invalid')
         return
@@ -87,6 +88,8 @@ function SearchInput() {
     <hr />
     <div className='my-5'>
       {/* md:flex flex-wrap md:gap-x-7 md:gap-y-5 */}
+
+      
         <form action="" method='get' className='p-2 md:flex flex-wrap md:gap-x-4 md:gap-y-5' onSubmit={formik.handleSubmit}>
           <ToastContainer/>
             <div className=' mb-5 md:mb-0'>
@@ -178,14 +181,12 @@ function SearchInput() {
               
               />
             </div>
-
-          
-            {/* <Calendar/> */}
             
         </form>
 
 
     </div>
+    {loading ? <Loading/> : ''}
 </div>
   )
 }
