@@ -15,7 +15,7 @@ const getAllBooking = async(req,res)=>{
 const getBookingByPin = async(req,res)=>{
     const {pin} = req.body
     try{
-        const allBooking = await BookingModel.find({booking_number:pin}).populate('bus_id','customer_id') //populate('customer_id' this is the key /property name of our id ref)
+        const allBooking = await BookingModel.find({booking_number:pin}).populate('bus_id',['bus_number','station_name','arrival_date','arrival_time,','depature_loc','arrival_loc','depature_time']) //populate('customer_id' this is the key /property name of our id ref)
         if(!allBooking){
             return res.json({msg:"No booking available"}).status(500)
         }

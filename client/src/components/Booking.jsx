@@ -14,7 +14,7 @@ function Booking() {
     const handleTicketSubmit= async(e)=>{
         e.preventDefault()
         await axios.post('https://myrydgh.onrender.com/booking/book',{pin:ticketId})
-        .then((resp)=>console.log(resp.data))
+        .then((resp)=>setTicket(resp.data))
         .catch(err=>console.log(err))
         
     }
