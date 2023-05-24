@@ -186,7 +186,7 @@ function SearchInput() {
 
 
     </div>
-    {loading ? <Loading/> : ''}
+    {loading ? <Loading message='Loading buses'/> : ''}
 </div>
   )
 }

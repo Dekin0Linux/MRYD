@@ -54,7 +54,7 @@ function PassengerDetails() {
   const [luggageCost,setLuggageCost] = useState(0)  
 
   useEffect(()=>{    
-    //IF OUT GLOBAL STATES HAVE EMPTY KEYS
+    //IF OUR GLOBAL STATES HAVE EMPTY KEYS
     const isEmptyValues = Object.values(booking).every((value)=>value)
     if(Object.keys(booking).length <= 0 || isEmptyValues == false){
         navigate('/',{replace:true})
@@ -69,15 +69,6 @@ function PassengerDetails() {
     updatedPassenger[num] = data //setting a user with index to the new data user enters
     setPassengersData(updatedPassenger) //update the state with pasengers data
 
-    //ACCMULATE PRICE 
-    // let luggagePrice = updatedPassenger.reduce((acc,curr)=>{
-    //   let luggCost = curr.luggage.reduce((luggAcc,lugCurr)=>{
-    //     return luggAcc + (lugCurr.price * lugCurr.quantity)
-    //   },0);
-    //   return acc + luggCost
-    // },0)
-    
-    // alert(luggagePrice)
   };
 
 
@@ -96,14 +87,13 @@ function PassengerDetails() {
   //WHEN FORM  IS SUBMITTED 
   const handleFormSubmit=(e)=>{
     e.preventDefault()
-    //UPDATE GLOBAL STATE PASSENGERS DATA
+    //UPDATE GLOBAL STATE WITH PASSENGERS DATA
     const passengers = {
       ...booking, //spreading everything in the prev object
       passenger: passengersData //adding the passenger data field
     }
     dispatch(addToCart(passengers)) //disptach to our global state
-    // navigate('/seat')
-    console.log(passengersData)
+    navigate('/seat')
   }
 
   

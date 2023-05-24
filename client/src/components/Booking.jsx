@@ -3,21 +3,40 @@ import Ticket from './Ticket'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import axios from 'axios'
+import Loading from './Loading'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const MySwal = withReactContent(Swal)
 
 
 function Booking() {
     const [ticket,setTicket] = useState([])
     const [ticketId,setTicketID] = useState('')
+    const [loading,setLoading] = useState(false)
 
 
     const handleTicketSubmit= async(e)=>{
         e.preventDefault()
+        setLoading(true)
         await axios.post('https://myrydgh.onrender.com/booking/book',{pin:ticketId})
         .then((resp)=>{
-            setTicket(resp.data)
+            if(ticketId == resp.data[0].booking_number){
+                setTicket(resp.data)
+                setLoading(false)
+            }else{
+                alert('Incorrect Booking Number')
+            }
         })
-        .catch(err=>console.log(err))
+        .catch(err=>{
+            setLoading(false)
+            setTicket([])
+            MySwal.fire({
+                title : <h2>Invalid Booking Number</h2>,
+                text : 'Please check your booking number and try again!!!',
+                icon : 'error'
+            })
+        })
         
     }
 
@@ -63,7 +82,8 @@ function Booking() {
                 <label htmlFor="" className='font-bold'>Enter booking Number</label> <br />
                 <input type="text" 
                 value={ticketId}
-                className='lg:w-1/2 w-full p-2 shadow border-blue-400 border-2 my-1' 
+                required
+                className='lg:w-1/2 w-full p-2 shadow border-blue-400 border-2 my-1 font-semibold text-lg' 
                 onChange={(e)=>setTicketID(e.target.value)}
                 
                 /> <br />
@@ -128,10 +148,7 @@ function Booking() {
             )
         }
 
-        
-        
-        
-
+        { loading ? <Loading message='Searching Ticket'/> : ''}
     </div>
   )
 }

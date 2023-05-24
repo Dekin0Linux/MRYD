@@ -138,13 +138,14 @@ function Seats() {
             passengers: currentPassenger,
             booking_status:response.status,
             price: booking.fare ,
+            depature_date: booking.depature_date,
             booking_number: nanoid()
         }
         await axios.post(`https://myrydgh.onrender.com/booking`,bookingData)
             .then(resp=>{
-                sessionStorage.setItem('bookingID',JSON.stringify(resp.data.booking_number))
+                sessionStorage.setItem('bookingID',JSON.stringify(resp.data[0].booking_number))
             }) 
-            .catch(err=>(err))
+            .catch(err=>alert('There was an error making your booking'))
     }
 
     //ADDING PAYMENT INFO TO DB
