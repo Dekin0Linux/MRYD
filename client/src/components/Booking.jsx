@@ -7,14 +7,17 @@ import axios from 'axios'
 
 
 function Booking() {
-    const [ticket,setTicket] = useState({})
+    const [ticket,setTicket] = useState([])
     const [ticketId,setTicketID] = useState('')
 
 
     const handleTicketSubmit= async(e)=>{
         e.preventDefault()
         await axios.post('https://myrydgh.onrender.com/booking/book',{pin:ticketId})
-        .then((resp)=>setTicket(resp.data))
+        .then((resp)=>{
+            console.log(resp.data)
+            setTicket(resp.data)
+        })
         .catch(err=>console.log(err))
         
     }
@@ -57,6 +60,7 @@ function Booking() {
     <div className='h-[80vh] md:p-10 p-5 flex flex-wrap'>
         <div className='md:w-1/2 w-full mb-5'>
             <form onSubmit={handleTicketSubmit}>
+                {ticket.price}
                 <label htmlFor="" className='font-bold'>Enter booking Number</label> <br />
                 <input type="text" 
                 value={ticketId}
@@ -69,35 +73,45 @@ function Booking() {
             </form>
         </div>
 
+        {
+            ticket.length > 0 && (
+
+                <div className='md:w-1/2 w-full md:p-3'>
+                    <div className='flex justify-between items-center my-2'>
+                        <p className='font-bold'>TICKETS</p>
+                        <button 
+                        className='bg-blue-400 text-white p-2 rounded-md text-center'
+                        onClick={ticketDownload}
+                        >
+                            Download Ticket
+                        </button>
+                    </div>
+
+                    <div className='border-dashed border-2 p-2 rounded-lg tickets'>
+                        <div className='flex flex-wrap md:gap-10 gap-x-5 gap-y-2'>
+                            <p>Booking # : <span className='font-bold text-blue-500'>{ticket[0].booking_number}</span> </p>
+                            <p>Status  : <span className='font-bold text-blue-500 capitalize'>{ticket[0].booking_status}</span></p>
+                            <p>Bus # : <span className='font-bold text-blue-500'>{ticket[0].bus_id.bus_number}</span></p>
+                            <p>Station Name : <span className='font-bold text-blue-500'>{ticket[0].bus_id.station_name}</span></p>
+                        
+                        </div>
+                        <div className='my-5 overflow-auto lg:h-[65vh]'>
+                            {
+                                ticket[0].passengers.map((passenger,index)=>(
+                                    <Ticket passenger={passenger} ticket={ticket}/>
+                                ))
+                            }
+                        </div>
+                        
+                    </div>
+                </div>
+
+            )
+        }
+
         
         
-        <div className='md:w-1/2 w-full md:p-3'>
-            <div className='flex justify-between items-center my-2'>
-                <p className='font-bold'>TICKETS</p>
-                <button 
-                className='bg-blue-400 text-white p-2 rounded-md text-center'
-                onClick={ticketDownload}
-
-                >
-                    Download Ticket
-                </button>
-            </div>
-
-            <div className='border-dashed border-2 p-2 rounded-lg tickets'>
-                <div className='flex flex-wrap md:gap-10 gap-x-5 gap-y-2'>
-                    <p>Booking # : <span className='font-bold text-blue-500'>OMI2g2My</span> </p>
-                    <p>Status  : <span className='font-bold text-blue-500'>Succes</span></p>
-                    <p>Bus # : <span className='font-bold text-blue-500'>AG-2033-23</span></p>
-                    <p>Station Name : <span className='font-bold text-blue-500'>VVIP</span></p>
-                
-                </div>
-                <div className='my-5 overflow-auto lg:h-[65vh]'>
-                    <Ticket/>
-                    <Ticket/>
-                </div>
-                
-            </div>
-        </div>
+        
 
     </div>
   )

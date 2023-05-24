@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Ticket() {
+function Ticket({passenger,ticket}) {
   return (
     <div className='p-2 shadow-lg border-blue-400 border-2 my-10 rounded'>
         <div className='flex justify-between mx-1'>
@@ -11,32 +11,32 @@ function Ticket() {
         <div className='flex flex-wrap md:gap-10 gap-x-5 gap-y-5 mt-5 bg-slate-100 p-5 rounded'>
             <div>
                 <p className='font-semibold'>Depature Date</p>
-                <p>2023-05-12</p>
+                <p>{ticket[0].bus_id.depature_time}</p>
             </div>
 
             <div>
                 <p className='font-semibold'>Depature Time</p>
-                <p>12:00AM</p>
+                <p>{ticket[0].bus_id.depature_time}</p>
             </div>
 
             <div>
                 <p className='font-semibold'>FROM</p>
-                <p>ACCRA</p>
+                <p className='capitalize'>{ticket[0].bus_id.depature_loc}</p>
             </div>
 
             <div>
                 <p className='font-semibold'>To</p>
-                <p>Tamale</p>
+                <p>{ticket[0].bus_id.arrival_loc}</p>
             </div>
 
             <div>
                 <p className='font-semibold'>Arrival Date</p>
-                <p>2023-04-12</p>
+                <p>{ticket[0].bus_id.arrival_date}</p>
             </div>
 
             <div>
                 <p className='font-semibold'>Arrival Time</p>
-                <p>05:00AM</p>
+                <p>{ticket[0].bus_id.arrival_time}</p>
             </div>
 
         </div>
