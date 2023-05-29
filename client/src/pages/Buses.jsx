@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Loading from '../components/Loading'
 
 const MySwal = withReactContent(Swal)
 
@@ -81,6 +82,9 @@ function Buses() {
           )
         }
       </div>
+
+      {loading ? <Loading message={'Searching Buses'}/> :''}
+
     </div>
 
   )

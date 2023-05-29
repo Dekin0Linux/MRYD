@@ -94,6 +94,7 @@ function PassengerDetails() {
     }
     dispatch(addToCart(passengers)) //disptach to our global state
     navigate('/seat')
+    // console.log(passengersData)
   }
 
   

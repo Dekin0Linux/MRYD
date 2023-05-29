@@ -51,7 +51,6 @@ function Booking() {
             const imgHeight = canvas.height;
             const aspectRatio = imgWidth / imgHeight;
 
-
             // CALCULATE SCALED DIMENSIONS
             const maxPdfWidth = 210; // Maximum width in mm
             const maxPdfHeight = 297; // Maximum height in mm (A4 height)
@@ -67,10 +66,29 @@ function Booking() {
             });
 
             doc.addImage(imgData, 'PNG', 0, 0, pdfWidth , pdfHeight)
-            doc.save('ticket.pdf')
-
-        })
+            doc.save(`${ticketId}.pdf`)
+        }).catch(err=>alert('There was an error getting your ticket'))
     }
+
+    
+    const handlePrint = () => {
+        const captureScreen = document.querySelector('.tickets');
+        html2canvas(captureScreen)
+        .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const printWindow = window.open('', '_blank'); 
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print Ticket</title></head><body>');
+            printWindow.document.write('<img src="' + imgData + '" style="width:100%;height:auto;">');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+
+            // Delay opening the print window
+            setTimeout(() => {
+                printWindow.print();
+            }, 100);
+        });
+    };
 
 
 
@@ -98,6 +116,8 @@ function Booking() {
 
                     <div className='flex justify-between items-center my-2'>
                         <p className='font-bold'>TICKETS</p>
+                        <button className='bg-blue-400 text-white p-2 rounded-md text-center' onClick={handlePrint}>Print</button>
+
                         <button 
                         className='bg-blue-400 text-white p-2 rounded-md text-center'
                         onClick={ticketDownload}

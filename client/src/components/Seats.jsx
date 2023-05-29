@@ -131,7 +131,8 @@ function Seats() {
     //ADDING NEW BOOKING TO DB
     const addNewBooking = async(response)=>{
         const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        const nanoid = customAlphabet(alphabet, 8) //GENERATES 8 
+        const nanoid = customAlphabet(alphabet, 6) //GENERATES 6
+
         const bookingData = {
             bus_id:busData._id,
             customer_id : booking.customerId,
@@ -143,9 +144,10 @@ function Seats() {
         }
         await axios.post(`https://myrydgh.onrender.com/booking`,bookingData)
             .then(resp=>{
-                sessionStorage.setItem('bookingID',JSON.stringify(resp.data[0].booking_number))
+                sessionStorage.setItem('bookingID',JSON.stringify(resp.data.booking_number
+                    ))
             }) 
-            .catch(err=>alert('There was an error making your booking'))
+            .catch(err=>console.log(err))
     }
 
     //ADDING PAYMENT INFO TO DB
@@ -232,6 +234,8 @@ function Seats() {
                     
                     {/* seats */}
                     <div className='flex-1 mb-5 border p-4 order-2 md:order-2'>
+
+                        {/* DRIVER */}
                         <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
 
                         <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5`}>

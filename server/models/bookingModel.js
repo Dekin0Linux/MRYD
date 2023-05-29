@@ -7,6 +7,7 @@ const bookingSchema = mongoose.Schema({
    passengers : {type:[Object] , require:true},
    booking_status : {type: String , required: true},
    price : {type:Number , required:true },
+   depature_date : {type:String,required:true},
    booking_number : {type:String , required : true}
 
 

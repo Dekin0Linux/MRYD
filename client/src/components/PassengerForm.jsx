@@ -10,6 +10,7 @@ function PassengerForm({num,handlePassengerData}) {
     const [fullname,setFullname] = useState('')
     const [phone,setPhone] = useState('')
     const [pickup,setPickup] = useState('')
+    const [luggage,setLuggage] = useState([])
 
     const Luggage = [
         { name: 'Ghana Must go(Big)', price: 30, quantity: 1 },
@@ -24,8 +25,8 @@ function PassengerForm({num,handlePassengerData}) {
         "Suhum (Over-head)"
     ]
 
-    const [selectCount, setSelectCount] = useState(0);
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    // const [selectCount, setSelectCount] = useState(0);
+    // const [selectedOptions, setSelectedOptions] = useState([]);
 
 
 
@@ -47,6 +48,10 @@ function PassengerForm({num,handlePassengerData}) {
             case "phone":
                 setPhone(value);
                 break;
+            case "luggage":
+                const newItem = JSON.parse(value)
+                setLuggage([...luggage,newItem]);
+                break;
                 
             default:
                 break;
@@ -58,7 +63,7 @@ function PassengerForm({num,handlePassengerData}) {
             fullname,
             pickup,
             phone,
-            luggage : selectedOptions,
+            luggage : luggage,
             ticketId : nanoid(6)
         });
 
@@ -106,6 +111,18 @@ function PassengerForm({num,handlePassengerData}) {
             </div>
 
             {/* handling luggage */}
+            <div>
+                    
+                    <select name='luggage' value={luggage} onChange={handleFormChange}>
+                        <option value="">No Luggage</option>
+                        {
+                            Luggage.map((item,index)=>(
+                                <option value={JSON.stringify(item)} key={index}>{item.name} - {item.price}</option>
+                            ))
+                        }
+                    </select>
+            </div>
+
 
             {/* end of luggage handle */}
             
