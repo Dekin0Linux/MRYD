@@ -215,6 +215,7 @@ function Seats() {
         const seatNumber = `A${i}`;
         const isBooked = bookedSeats && bookedSeats.includes(seatNumber);//
         const isChosen = chosen.includes(seatNumber)
+
         seatComponents.push(
         <span
             key={seatNumber}
@@ -244,7 +245,7 @@ function Seats() {
                         {seatsPerRow}
 
 
-                        <div className={`grid gap-4 ${seatsPerRow == 3 ? 'grid-cols-3': seatsPerRow} my-5 text-center`}>
+                        <div className={`grid gap-4 ${seatsPerRow == 3 ? 'grid-cols-3': 'grid-cols-4'} my-5 text-center`}>
                             {seatComponents}
                         </div>
 
