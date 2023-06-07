@@ -34,7 +34,7 @@ function Seats() {
 
     const totalSeats = booking && booking.totalSeats //totals seats of bus
     const person = booking && booking.persons //number of persons user entered
-    let seatsPerRow = booking.seats_perRow ? booking.seats_perRow: ''
+    let seatsPerRow = booking && booking.seats_perRow
 
     const [availSeat,setAvailSeat] = useState() //number of available seat numbers gotten from db
     const [bookedSeats,setBookedSeats] = useState() //array of booked seat numbers gotten from db
@@ -216,20 +216,20 @@ function Seats() {
         const isBooked = bookedSeats && bookedSeats.includes(seatNumber);//
         const isChosen = chosen.includes(seatNumber)
         seatComponents.push(
-        <button
+        <span
             key={seatNumber}
-            className={`p-4 w-10/12 text-center flex flex-wrap justify-center items-center gap-2 shadow-md rounded-md ${isBooked ? 'bg-red-500' : 'bg-slate-100'} ${isChosen?'bg-yellow-400':''} font-semibold `}
+            className={`p-4  text-center flex flex-wrap justify-center items-center gap-2 shadow-md rounded-md ${isBooked ? 'bg-red-500' : 'bg-slate-100'} ${isChosen?'bg-yellow-400':''} font-semibold `}
             onClick={() => handleSeatSelect(seatNumber)}
         >
             <MdEventSeat size={28} color='black'/>{seatNumber}
-        </button>
+        </span>
         );
     }
 
     return (
         <>
          {/* md:flex justify-center */}
-            <div className='container mx-auto lg:w-[60%] md:p-5 p-2 ' >
+            <div className='container mx-auto lg:w-[60%] md:p-5 p-2' >
                 <ToastContainer/>
                 
                 <div className='flex md:gap-5 mx-5 flex-wrap'>
@@ -238,9 +238,11 @@ function Seats() {
                     <div className='flex-1 mb-5 border p-4 order-2 md:order-2'>
 
                         {/* DRIVER */}
-                        <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
-
-                        <div className={`grid gap-4 grid-cols-${booking.seats_perRow} my-5 text-center`}>
+                        <button className='border w-full p-2'>
+                            <GiSteeringWheel size={40} color='green'/>
+                        </button>
+                        {seatsPerRow}
+                        <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5 text-center`}>
                             {seatComponents}
                         </div>
 
