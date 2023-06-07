@@ -81,7 +81,7 @@ function Seats() {
 
     const totalSeats = booking && booking.totalSeats //totals seats of bus
     const person = booking && booking.persons //number of persons user entered
-    const seatsPerRow = booking.seats_perRow ? booking.seats_perRow: '' //number of seats per row
+    var seatsPerRow = booking.seats_perRow ? booking.seats_perRow: '' //number of seats per row
 
     //SEAT SELECTING FUNCTION
     const handleSeatSelect=(seatNumber)=>{
@@ -238,7 +238,7 @@ function Seats() {
                         {/* DRIVER */}
                         <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
 
-                        <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5`}>
+                        <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5 text-center`}>
                             {seatComponents}
                         </div>
 
