@@ -81,7 +81,7 @@ function Seats() {
 
     const totalSeats = booking && booking.totalSeats //totals seats of bus
     const person = booking && booking.persons //number of persons user entered
-    const seatsPerRow = booking && booking.seats_perRow //number of seats per row
+    const seatsPerRow = booking.seats_perRow ? booking.seats_perRow: '' //number of seats per row
 
     //SEAT SELECTING FUNCTION
     const handleSeatSelect=(seatNumber)=>{
@@ -227,7 +227,7 @@ function Seats() {
     return (
         <>
          {/* md:flex justify-center */}
-            <div className='container mx-auto lg:w-[60%] p-5 ' >
+            <div className='container mx-auto lg:w-[60%] md:p-5 p-2 ' >
                 <ToastContainer/>
                 
                 <div className='flex md:gap-5 mx-5 flex-wrap'>
@@ -237,10 +237,11 @@ function Seats() {
 
                         {/* DRIVER */}
                         <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
-                        
+
                         <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5`}>
                             {seatComponents}
                         </div>
+
                     </div>
 
                     {/* seats info */}
