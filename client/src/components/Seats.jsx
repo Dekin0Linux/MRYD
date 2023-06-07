@@ -229,20 +229,22 @@ function Seats() {
     return (
         <>
          {/* md:flex justify-center */}
-            <div className='container mx-auto lg:w-[60%] md:p-5 p-2' >
+            <div className='container md:mx-auto lg:w-[60%] md:p-5' >
                 <ToastContainer/>
                 
-                <div className='flex md:gap-5 mx-5 flex-wrap'>
+                <div className='flex md:gap-5 md:mx-5 mx-1 flex-wrap'>
                     
                     {/* seats */}
-                    <div className='flex-1 mb-5 border p-4 order-2 md:order-2'>
+                    <div className='flex-1 mb-5 mt-1 border p-4 order-2 md:order-2'>
 
                         {/* DRIVER */}
                         <button className='border w-full p-2'>
                             <GiSteeringWheel size={40} color='green'/>
                         </button>
                         {seatsPerRow}
-                        <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5 text-center`}>
+
+
+                        <div className={`grid gap-4 ${seatsPerRow == 3 ? 'grid-cols-3': seatsPerRow} my-5 text-center`}>
                             {seatComponents}
                         </div>
 
