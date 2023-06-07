@@ -237,7 +237,7 @@ function Seats() {
 
                         {/* DRIVER */}
                         <button className='border w-full p-2'><GiSteeringWheel size={40} color='green'/></button>
-
+                        
                         <div className={`grid gap-4 grid-cols-${seatsPerRow} my-5`}>
                             {seatComponents}
                         </div>
