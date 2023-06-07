@@ -32,6 +32,10 @@ function Seats() {
     //const token = Cookies.get('login') //getting login token from cookie
     const getUser = JSON.parse(localStorage.getItem('user')) //geting logged in user form localstorage
 
+    const totalSeats = booking && booking.totalSeats //totals seats of bus
+    const person = booking && booking.persons //number of persons user entered
+    let seatsPerRow = booking.seats_perRow ? booking.seats_perRow: ''
+
     const [availSeat,setAvailSeat] = useState() //number of available seat numbers gotten from db
     const [bookedSeats,setBookedSeats] = useState() //array of booked seat numbers gotten from db
     const [chosen,setChosen] = useState([]) // array to keep the user's selected seat
@@ -79,9 +83,7 @@ function Seats() {
         }
     };
 
-    const totalSeats = booking && booking.totalSeats //totals seats of bus
-    const person = booking && booking.persons //number of persons user entered
-    var seatsPerRow = booking.seats_perRow ? booking.seats_perRow: '' //number of seats per row
+ //number of seats per row
 
     //SEAT SELECTING FUNCTION
     const handleSeatSelect=(seatNumber)=>{
@@ -216,7 +218,7 @@ function Seats() {
         seatComponents.push(
         <button
             key={seatNumber}
-            className={`p-4 text-center flex flex-wrap justify-center items-center gap-2 shadow-md rounded-md ${isBooked ? 'bg-red-500' : 'bg-slate-100'} ${isChosen?'bg-yellow-400':''} font-semibold `}
+            className={`p-4 w-10/12 text-center flex flex-wrap justify-center items-center gap-2 shadow-md rounded-md ${isBooked ? 'bg-red-500' : 'bg-slate-100'} ${isChosen?'bg-yellow-400':''} font-semibold `}
             onClick={() => handleSeatSelect(seatNumber)}
         >
             <MdEventSeat size={28} color='black'/>{seatNumber}
