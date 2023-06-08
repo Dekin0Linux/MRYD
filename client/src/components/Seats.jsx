@@ -39,7 +39,7 @@ function Seats() {
     const [availSeat,setAvailSeat] = useState(0) //number of available seat numbers gotten from db
     const [bookedSeats,setBookedSeats] = useState() //array of booked seat numbers gotten from db
     const [chosen,setChosen] = useState([]) // array to keep the user's selected seat
-    const [loading, setLoading] = useState(true); //loading state of payment gateway
+    const [loading, setLoading] = useState(false); //loading state of payment gateway
 
     // alert(bookedSeats.length)
 
