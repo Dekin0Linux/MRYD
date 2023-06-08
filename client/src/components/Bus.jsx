@@ -24,14 +24,14 @@ function Bus({bus,index}) {
             totalSeats : bus.total_seats,
             station_name : bus.station_name,
             seats_perRow : bus.seats_perRow,
-            persons : search.persons
+            persons : search.persons,
+            bookedSeats : bus.booked_seats
         }
         dispatch(addToCart(newBooking))
         if(booking){
             navigate('/passenger')
         }
     }
-
 
   return (
     <div className='md:flex justify-between bg-white p-5 shadow-lg md:my-8 my-4 rounded-lg md:mx-0 border-blue-400 border-[3px]'>
@@ -45,7 +45,8 @@ function Bus({bus,index}) {
                     <div className='flex items-center gap-5 flex-wrap'>
                         <span className='inline-flex items-center bg-orange-400 gap-2 px-2 rounded-lg text-white text-semibold'><FaStar color='white'/> {bus.rating}</span>
                         <span className='inline-flex items-center' >{bus.bus_type}  |</span>
-                        <span className='inline-flex items-center gap-2 font-bold text-red-700'><MdOutlineAirlineSeatReclineExtra/>{bus.available_seats} seats left</span>
+
+                        <span className='inline-flex items-center gap-2 font-bold text-red-700'><MdOutlineAirlineSeatReclineExtra/>{bus.total_seats - bus.booked_seats.length} seats left</span>
                     </div>
                     <small className='font-bold'>Bus Number : {bus.bus_number}</small>
                 </div>

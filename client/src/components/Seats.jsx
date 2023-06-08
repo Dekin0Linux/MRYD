@@ -36,10 +36,12 @@ function Seats() {
     const person = booking && booking.persons //number of persons user entered
     let seatsPerRow = booking && booking.seats_perRow
 
-    const [availSeat,setAvailSeat] = useState() //number of available seat numbers gotten from db
+    const [availSeat,setAvailSeat] = useState(0) //number of available seat numbers gotten from db
     const [bookedSeats,setBookedSeats] = useState() //array of booked seat numbers gotten from db
     const [chosen,setChosen] = useState([]) // array to keep the user's selected seat
-    const [loading, setLoading] = useState(false); //loading state of payment gateway
+    const [loading, setLoading] = useState(true); //loading state of payment gateway
+
+    // alert(bookedSeats.length)
 
     //getting bus by id from database
     const getBus = async(id) => {
@@ -47,6 +49,7 @@ function Seats() {
         setBusData(busResponse.data)
         setAvailSeat(busResponse.data.available_seats)
         setBookedSeats(busResponse.data.booked_seats)
+        setAvailSeat(totalSeats - bookedSeats.length)
     }
 
     useEffect(()=>{
@@ -56,7 +59,7 @@ function Seats() {
         if(Object.keys(booking).length <= 0 || isEmptyValues == false){
             navigate('/',{replace:true})
         }
-    },[])    
+    },[availSeat])    
 
     //notifications
     const notify = (msg,type) => {
@@ -242,8 +245,6 @@ function Seats() {
                         <button className='border w-full p-2'>
                             <GiSteeringWheel size={40} color='green'/>
                         </button>
-                        {seatsPerRow}
-
 
                         <div className={`grid gap-4 ${seatsPerRow == 3 ? 'grid-cols-3': 'grid-cols-4'} my-5 text-center`}>
                             {seatComponents}
@@ -262,6 +263,7 @@ function Seats() {
                         <Selection seatType='Not Availble' price={0} seatColor='bg-red-600'/>
                         <Selection seatType='Availbable' price={0} seatColor='bg-slate-100'/>
                         <Selection seatType='selected' price={0} seatColor='bg-yellow-400'/>
+                        
                         <p className='font-bold my-5'>Available seats : {availSeat}</p>
                         <div className='text-center'>
                             {

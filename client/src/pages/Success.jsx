@@ -8,12 +8,14 @@ import gif from '../assets/gifSuccess.gif'
 function Success() {
   const [getbooked,setGetBooked] = useState('')
   const [isCopied,setIsCopied] = useState(false)
+  const [loading,setLoading] = useState(true)
 
-  const getData= ()=>{
-    let data = sessionStorage.getItem('bookingID')
+  const getData= async()=>{
+    let data = await sessionStorage.getItem('bookingID')
     data=JSON.parse(data)
     console.log(data)
     setGetBooked(data)
+    setLoading(false)
   }
 
   const handleCopy = async(txt)=>{

@@ -14,6 +14,8 @@ function SearchInput() {
   const [fromLocation,setFromLocation] = useState([])
   const [toLocation,setToLocation] = useState([])
   const [loading,setLoading] = useState(true)
+
+  const currentDate = new Date().toISOString().split('T')[0]; //currentdate
   
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -138,6 +140,7 @@ function SearchInput() {
               <input type='date' 
               className='md:py-3 outline-none md:w-60 w-full bg-white border-blue-300 border-2 py-2 px-4'
               id='date'
+              min={currentDate}
               value={formik.values.date}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
