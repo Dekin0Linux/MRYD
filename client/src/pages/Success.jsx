@@ -31,7 +31,7 @@ function Success() {
 
   useEffect(()=>{
     getData()
-  },[])
+  },[getbooked])
 
   const navigate = useNavigate()
   return (
@@ -42,7 +42,7 @@ function Success() {
           <p className='font-semibold text-xl text-green-600'>Booking Successful</p>
           <div className='my-5 font-bold text-lg'>
             <span>Booking # : </span>
-            <span>{getbooked != '' ? getbooked : 'No Booking'} </span>
+            <span>{getbooked !== '' ? getbooked : 'No Booking'} </span>
             <button onClick={()=>handleCopy(getbooked)} className={`${isCopied ? 'bg-green-400':'bg-blue-400'} px-3 py-1 mx-2 text-white rounded-md`}>{isCopied ?  'Copied' : 'Copy'}</button>
           </div>
           <small className='text-green-400 text-lg'>Copy the Booking number and download your ticket </small>
