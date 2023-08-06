@@ -53,7 +53,6 @@ function Success() {
           </div>
         </div>
 
-  
       </div>
     </div>
   )
