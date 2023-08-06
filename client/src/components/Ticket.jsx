@@ -2,7 +2,7 @@ import React from 'react'
 
 function Ticket({passenger,ticket}) {
   return (
-    <div className='p-2 py-5 shadow-lg border-blue-400 border-2 my-10 rounded'>
+    <div className='p-2 py-5 shadow-lg border-blue-400 border-2 my-10 rounded bg-white'>
         <div className='flex flex-wrap justify-between items-center mx-1 gap-y-5'>
             <p className='font-semibold'>Name : {passenger.fullname}</p>
             <p className='font-bold text-red-500'>Ticket ID: {passenger.ticketId}</p>

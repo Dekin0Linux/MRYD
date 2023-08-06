@@ -8,13 +8,18 @@ import gif from '../assets/gifSuccess.gif'
 function Success() {
   const [getbooked,setGetBooked] = useState('')
   const [isCopied,setIsCopied] = useState(false)
-  const [loading,setLoading] = useState(true)
+  const [loading,setLoading] = useState(false)
 
   const getData= async()=>{
-    let data = await sessionStorage.getItem('bookingID')
+    let data = await localStorage.getItem('bookingID')
     data=JSON.parse(data)
-    setGetBooked(data)
-    setLoading(false)
+    if(data === null){
+      setLoading(false)
+    }else{
+      setGetBooked(data)
+      setLoading(true)
+    }
+
   }
 
   const handleCopy = async(txt)=>{
@@ -29,11 +34,21 @@ function Success() {
 
 
   useEffect(()=>{
+    // setInterval(getData(),100)
     getData()
-  },[getbooked])
+    
+  },[getData])
+
+
 
   const navigate = useNavigate()
   return (
+    
+    <div>
+
+    {
+      loading === false ? 'Loading Booking Bumber' :  (
+    
     <div className=' flex justify-center w-full'>
       <div className='md:flex lg:gap-10 gap-y-20 py-5'>
         <div className='text-center px-2'>
@@ -55,6 +70,10 @@ function Success() {
 
       </div>
     </div>
+
+  )}
+
+  </div>
   )
 }
 

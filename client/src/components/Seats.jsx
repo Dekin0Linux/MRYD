@@ -147,10 +147,13 @@ function Seats() {
             depature_date: booking.depature_date,
             booking_number: nanoid()
         }
+
+        localStorage.setItem('bookingID',JSON.stringify(bookingData.booking_number))
+
         await axios.post(`https://myrydgh.onrender.com/booking`,bookingData)
             .then(resp=>{
-                sessionStorage.setItem('bookingID',JSON.stringify(resp.data.booking_number
-                    ))
+                console.log('booked')
+                
             }) 
             .catch(err=>console.log(err))
     }
@@ -188,11 +191,13 @@ function Seats() {
                             const myseat = chosen;
                             const allSeats = totalSeats
 
+
                             dbSeatUpdates(myseat,allSeats) // run seat update
                             addNewBooking(response) //run adding new booking
                             addPaymentInfo(response) //run payment addition
 
                             setLoading(false)
+                            
                             navigate('/success', { replace: true })
                         }else{
                             setLoading(false);
