@@ -43,8 +43,8 @@ const createNewUser = async (req,res)=>{
             return res.status(500).res.json({msg:"User not Created"})
         }
         await user.save().then((doc)=>{
-            const userToken = token(doc._id) //setting jwt token id
-            res.cookie('login', userToken, {httpOnly:true})
+            const userToken = token(doc._id) //setting jwt with users token id
+            res.cookie('login', userToken, {httpOnly:true}) //setting cookie
             res.json(doc).status(200) 
         })
     }catch(err){
@@ -53,7 +53,7 @@ const createNewUser = async (req,res)=>{
 }
 
 
-
+//LOGGING USER IN
 const loginUser = async(req,res)=>{
     //get use input
         const {email,password} = req.body
@@ -61,7 +61,6 @@ const loginUser = async(req,res)=>{
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
         await bcrypt.compare(password, user.password,(err,result)=>{
             if(err || !result){
                 return res.send('Incorrect Password').status(401);
@@ -73,7 +72,7 @@ const loginUser = async(req,res)=>{
 }
 
 
-
+// RESET USER PASSWORD
 const resetPassword = async(req,res)=>{
     const {email,password} = req.body
     try{
@@ -93,7 +92,7 @@ const resetPassword = async(req,res)=>{
 }
 
 
-
+//UPDATE USER DATA
 const updateUser = async(req,res)=>{
     const {id} = req.params
     const newUpdate = req.body
@@ -110,7 +109,7 @@ const updateUser = async(req,res)=>{
     }
 }
 
-
+//DELETE USER
 const deleteUser = async(req,res)=>{
     const {id} = req.params
     try{
@@ -124,7 +123,7 @@ const deleteUser = async(req,res)=>{
     }
 }
 
-
+//LOGGING OUT USER
 const logOut = (req,res)=>{
     res.clearCookie('login',{httpOnly:true,sameSite: 'none',secure: true,maxAge:1})
     res.json({msg:"Logged out successful"})

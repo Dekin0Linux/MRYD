@@ -27,7 +27,6 @@ const logOut = async ()=>{
   //     console.log('loogedout')
   //   }
   // }).catch(err=>console.log(err))
-
   localStorage.removeItem('user') //user storage
   window.location.href='/'
 }
@@ -80,7 +79,7 @@ if(getUser){
                   }
                 </ul>  
                 )
-                }       
+              }       
             </nav>
         
         </div>

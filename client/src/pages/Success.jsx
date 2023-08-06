@@ -13,7 +13,6 @@ function Success() {
   const getData= async()=>{
     let data = await sessionStorage.getItem('bookingID')
     data=JSON.parse(data)
-    console.log(data)
     setGetBooked(data)
     setLoading(false)
   }

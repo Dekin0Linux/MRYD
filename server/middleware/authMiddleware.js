@@ -7,7 +7,7 @@ const requireAuth=(req,res,next)=>{
     if(token){
         jwt.verify(token,process.env.SECRET,(err,decodedToken)=>{
             if(err){
-                res.redirect('/login') //if token is not valid refirect user
+                res.redirect('/login') //if token is not valid reDirect user
             }else{
                 next() //else run the next middleware
             }
