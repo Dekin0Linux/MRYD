@@ -111,18 +111,6 @@ function PassengerForm({num,handlePassengerData}) {
             </div>
 
             {/* handling luggage */}
-            <div>
-                    
-                    <select name='luggage' value={luggage} onChange={handleFormChange}>
-                        <option value="">No Luggage</option>
-                        {
-                            Luggage.map((item,index)=>(
-                                <option value={JSON.stringify(item)} key={index}>{item.name} - {item.price}</option>
-                            ))
-                        }
-                    </select>
-            </div>
-
 
             {/* end of luggage handle */}
             

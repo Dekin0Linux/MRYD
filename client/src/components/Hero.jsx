@@ -11,8 +11,8 @@ import { Autoplay } from 'swiper';
 //md:w-2/3
 function Hero() {
   return (
-    <div className=''>
-        <Swiper className='w-full md:h-[55vh] h-[40vh] relative '
+    <div className='p-3 overflow-hidden'>
+        <Swiper className='w-full relative rounded-xl'
             // spaceBetween={50}
             autoplay={{
               delay: 5000,
@@ -25,22 +25,22 @@ function Hero() {
         >
             
             <SwiperSlide>
-              <div className='w-[100%] md:h-[65vh] h-full'>
+              <div className='w-[100%] '>
                   <img src={banner1} alt="slide1" className='w-full h-full object-contain'/>
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className='md:w-full md:h-[65vh] h-[40vh]'>
+              <div className='md:w-full '>
                   <img src={banner2} alt="slide6" className='w-full h-full  object-contain'/>
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className='md:w-full md:h-[65vh] h-[40vh]'>
+              <div className='md:w-full '>
                   <img src={banner1} alt="slide4" className='w-full h-full  object-contain'/>
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className='md:w-full md:h-[65vh] h-full'>
+              <div className='md:w-full '>
                 <img src={banner2} alt="slide6" className='w-full h-full  object-contain'/>
               </div>
             </SwiperSlide>

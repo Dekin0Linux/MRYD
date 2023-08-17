@@ -89,11 +89,11 @@ function SearchInput() {
       {/* md:flex flex-wrap md:gap-x-7 md:gap-y-5 */}
 
       
-        <form action="" method='get' className='p-2 md:flex flex-wrap md:gap-x-4 md:gap-y-5' onSubmit={formik.handleSubmit}>
+        <form className='grid md:grid-flow-col-dense' onSubmit={formik.handleSubmit}>
           <ToastContainer/>
             <div className=' mb-5 md:mb-0'>
                 <label htmlFor="from">From</label> <br />
-                <select name="from" id="from" className='md:py-3 bg-white border-blue-300 border-2 py-2 px-4 md:w-60 w-full outline-none' 
+                <select name="from" id="from" className='md:py-3 rounded-md bg-white border-blue-300 border-2 py-2 px-4 md:w-60 w-full outline-none' 
                 value={formik.values.from} 
                 onChange={formik.handleChange} 
                 onBlur={formik.handleBlur}>
@@ -116,7 +116,7 @@ function SearchInput() {
 
             <div className=' mb-5 md:mb-0'>
                 <label htmlFor="to">To</label> <br />
-                <select name="to" id="to" className='md:py-3 bg-white border-blue-300 border-2 py-2 px-4 md:w-60 w-full outline-none' 
+                <select name="to" id="to" className='md:py-3 rounded-md bg-white border-blue-300 border-2 py-2 px-4 md:w-60 w-full outline-none' 
                 value={formik.values.to} 
                 onChange={formik.handleChange} 
                 onBlur={formik.handleBlur}>
@@ -138,7 +138,7 @@ function SearchInput() {
             <div className=' mb-5 md:mb-0 '>
               <label htmlFor="to">Date</label> <br />
               <input type='date' 
-              className='md:py-3 outline-none md:w-60 w-full bg-white border-blue-300 border-2 py-2 px-4'
+              className='md:py-3 outline-none md:w-60 w-full rounded-md bg-white border-blue-300 border-2 py-2 px-4'
               id='date'
               min={currentDate}
               value={formik.values.date}
@@ -153,10 +153,10 @@ function SearchInput() {
                 }
             </div>
 
-            <div className=' mb-5 md:mb-0'>
+            <div className=' mb-2 md:mb-0'>
               <label htmlFor="to">No. of Person/s</label> <br />
               <input type="text" 
-              className='px-4 outline-none md:w-60 w-full border-blue-300 border-2 py-2 md:py-3 '
+              className='px-4 outline-none md:w-60 rounded-md w-full border-blue-300 border-2 py-2 md:py-3 '
               placeholder='0'
               id='persons'
               min={1}

@@ -45,10 +45,10 @@ if(getUser){
   }
 
   return (
-    <div className='bg-blue-100 w-full sticky top-0 z-[100]'>
+    <div className='bg-blue-100 w-full md:sticky md:top-0  z-[100]'>
         <div className='container mx-auto text-blue-900 px-5 md:px-0'>
             <nav className='md:flex justify-between items-center md:py-5 py-1'>
-                <Link to={'/'}> <img src={logo} alt="logo" className='w-28 animate-bounce'/></Link>
+                <Link to={'/'}> <img src={logo} alt="logo" className='w-28 animate-bounce '/></Link>
 
               {/* hamburger */}
                 {
