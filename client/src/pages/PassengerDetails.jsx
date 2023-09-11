@@ -8,6 +8,7 @@ export const PriceBar = ({booking,userSearch,cost})=>{
   
   return(
         <div className='p-5 mx-auto border shadow rounded lg:w-3/12'>
+            <p className='font-bold text-xl'>Bus Summary</p>
           <div className='flex justify-between flex-wrap lg:mb-10'>
             <div>
               <p>Fare</p>

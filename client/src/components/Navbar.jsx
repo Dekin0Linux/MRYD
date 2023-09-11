@@ -45,10 +45,10 @@ if(getUser){
   }
 
   return (
-    <div className='bg-blue-100 w-full md:sticky md:top-0  z-[100]'>
-        <div className='container mx-auto text-blue-900 px-5 md:px-0'>
+    <div className='bg-white w-full md:sticky md:top-0 shadow-md  z-[100]'>
+        <div className='container mx-auto text-blue-900 px-5 md:text-lg md:px-0'>
             <nav className='md:flex justify-between items-center md:py-5 py-1'>
-                <Link to={'/'}> <img src={logo} alt="logo" className='w-28 animate-bounce '/></Link>
+                <Link to={'/'}> <img src={logo} alt="logo" className='w-28 animate-bounce no-underline' style={{textDecorationLine:'none'}}/></Link>
 
               {/* hamburger */}
                 {
@@ -63,19 +63,19 @@ if(getUser){
                   (
                 <ul className={'md:flex justify-between md:gap-10 hidden gap-y-10'}>
                     <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
-                    <Link to={'/'}><li className='font-bold'>Home</li></Link>
-                    <Link to={'/mybooking'}><li className='font-bold'>My Booking</li></Link>
+                    <Link to={'/'} className='no-underline hover:no-underline'><li className='font-bold no-underline hover:no-underline'>Home</li></Link>
+                    <Link to={'/mybooking'} className='no-underline hover:no-underline'><li className='font-bold no-underline hover:no-underline'>My Booking</li></Link>
                     {
-                      loggedIn ? <Link to="/"><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn ? <Link to="/" className='no-underline hover:no-underline'><li className='font-bold px-2 bg-red-500 py-1 rounded text-white shadow-2xl' onClick={logOut}>Logout</li></Link> : ""
                     }
                 </ul> )
                 : (
                 <ul className={'flex flex-col md:flex-row justify-between md:gap-10 gap-y-4'}>
                   <li className='font-bold '><a href="tel:+233558628473">Toll free</a></li>
-                  <Link to={'/'} onClick={()=>setSelected(false)}><li className='font-bold'>Home</li></Link>
-                  <Link to={'/mybooking'} onClick={()=>setSelected(false)} ><li className='font-bold'>My Booking</li></Link>
+                  <Link to={'/'} onClick={()=>setSelected(false)} className='no-underline hover:no-underline'><li className='font-bold no-underline'>Home</li></Link>
+                  <Link to={'/mybooking'} className='no-underline hover:no-underline' onClick={()=>setSelected(false)} ><li className='font-bold no-underline hover:no-underline'>My Booking</li></Link>
                   {
-                      loggedIn ? <Link to="/" onClick={()=>setSelected(false)}><li className='font-bold px-2 w-1/2 md:w-auto bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
+                      loggedIn ? <Link to="/" onClick={()=>setSelected(false)} className='no-underline hover:no-underline'><li className='font-bold no-underline px-2 w-1/2 md:w-auto bg-red-500 py-1 rounded text-white shadow-xl' onClick={logOut}>Logout</li></Link> : ""
                   }
                 </ul>  
                 )
