@@ -11,7 +11,7 @@ function Ticket({passenger,ticket}) {
         <div className='flex flex-wrap md:gap-10 gap-x-12 gap-y-10 mt-5 bg-slate-100 p-8 rounded'>
             <div>
                 <p className='font-semibold'>Depature Date</p>
-                <p>{ticket[0].bus_id.depature_Date}</p>
+                <p>{ticket[0].depature_date}</p>
             </div>
 
             <div>
