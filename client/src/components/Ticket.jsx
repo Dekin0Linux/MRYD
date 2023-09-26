@@ -29,10 +29,10 @@ function Ticket({passenger,ticket}) {
                 <p>{ticket[0].bus_id.arrival_loc}</p>
             </div>
 
-            <div>
+            {/* <div>
                 <p className='font-semibold'>Arrival Date</p>
                 <p>{ticket[0].bus_id.arrival_date}</p>
-            </div>
+            </div> */}
 
             <div>
                 <p className='font-semibold'>Arrival Time</p>
