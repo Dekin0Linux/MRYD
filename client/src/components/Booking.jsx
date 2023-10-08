@@ -114,7 +114,7 @@ function Booking() {
             ticket.length > 0 && (
                 <div className='md:w-1/2 w-full md:p-5'>
 
-                    <div className='flex justify-between items-center my-2'>
+                    <div className='flex justify-between items-center my-2 flex-wrap'>
                         <p className='font-bold'>TICKETS</p>
                         <button className='bg-blue-400 text-white p-2 rounded-md text-center' onClick={handlePrint}>Print</button>
 
