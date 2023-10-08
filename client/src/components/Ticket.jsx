@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Ticket({passenger,ticket}) {
+    console.log(ticket)
   return (
     <div className='p-2 py-5 shadow-lg border-blue-400 border-2 my-10 rounded bg-white'>
         <div className='flex flex-wrap justify-between items-center mx-1 gap-y-5'>
@@ -29,10 +30,10 @@ function Ticket({passenger,ticket}) {
                 <p>{ticket[0].bus_id.arrival_loc}</p>
             </div>
 
-            <div>
+            {/* <div>
                 <p className='font-semibold'>Arrival Date</p>
                 <p>{ticket[0].bus_id.arrival_date}</p>
-            </div>
+            </div> */}
 
             <div>
                 <p className='font-semibold'>Arrival Time</p>
