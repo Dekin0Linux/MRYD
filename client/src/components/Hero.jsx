@@ -6,13 +6,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import { Autoplay } from 'swiper';
+import SearchInput from './SearchInput';
 
 
 //md:w-2/3
 function Hero() {
   return (
-    <div className=''>
-        <Swiper className='w-full relative rounded-xl'
+    <div className='md:h-[70vh] mb-20 relative'>
+        <Swiper className='w-full h-full '
             // spaceBetween={50}
             autoplay={{
               delay: 5000,
@@ -26,26 +27,31 @@ function Hero() {
             
             <SwiperSlide>
               <div className='w-[100%] h-[100%]'>
-                  <img src={banner1} alt="slide1" className='w-full h-[100%]'/>
+                  <img src={banner1} alt="slide1" className='w-full h-full'/>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className='md:w-full h-[100%]'>
-                  <img src={banner2} alt="slide6" className='w-full h-[100%]'/>
+                  <img src={banner2} alt="slide6" className='w-full h-full'/>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className='md:w-full h-[100%]'>
-                  <img src={banner1} alt="slide4" className='w-full h-[100%]'/>
+                  <img src={banner1} alt="slide4" className='w-full h-full'/>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className='md:w-full h-[100%]'>
-                <img src={banner2} alt="slide6" className='w-full h-[100%]'/>
+                <img src={banner2} alt="slide6" className='w-full h-full'/>
               </div>
             </SwiperSlide>
-
         </Swiper>
+
+          <div className='md:absolute w-full inset-x-0 z-50 bottom-[-30px]'>
+            <SearchInput/>
+          </div>
+
+
         
     </div>
   )

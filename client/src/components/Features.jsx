@@ -3,7 +3,7 @@ import Card from './Card'
 
 function Features({title}) {
   return (
-    <div className='container mx-auto pt-[20%]'>
+    <div className='container mx-auto '>
        <h1 className='text-center text-5xl font-bold text-blue-500'>{title}</h1>
        <div className='md:flex gap-5 p-5 md:mt-16'>
 

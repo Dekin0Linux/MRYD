@@ -29,6 +29,7 @@ const uploadFile = multer({
             return cb(new Error('Email already exists.'));
         }
         cb(null, true);
+        
     }
 })
 

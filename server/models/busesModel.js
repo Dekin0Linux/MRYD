@@ -9,6 +9,10 @@ for (let i = 0; i < 365; i++) {
   daysOfYear.push(isoDate);
 }
 
+/**
+ * @params reference a bus bus company
+ */
+
 
  //creating the buses schema
 const busSchema = mongoose.Schema({
@@ -22,7 +26,7 @@ const busSchema = mongoose.Schema({
       arrival_date : {type:String , reqiired: true},
       arrival_time : {type:String,required:true},
       total_seats : {type:Number,required:true},
-      available_seats :{type: Number,required: true,
+      available_seats :{type: Number,
         default: function() {
           return this.total_seats;
         }

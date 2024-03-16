@@ -20,9 +20,9 @@ const getSingleCompany = async(req,res)=>{
     try{
         const company = await companyModel.findById(id)
         if(!company){
-            return res.status(500).json({msg:"Bus not found"})
+            return res.status(500).json({msg:"Company not found"})
         }
-        res.json(company)
+        res.status(200).json(company)
     }catch(err){
         res.json({msg:err.message}).status(404)
     }
@@ -30,6 +30,7 @@ const getSingleCompany = async(req,res)=>{
 
 
 const addNewCompany = async (req,res)=>{
+    console.log(req.body)
     try{
         const fileName = req.file //IMAGE FILE NAME
         //HASHING PASSWORD
@@ -37,20 +38,26 @@ const addNewCompany = async (req,res)=>{
         const hashPassword =await  bcrypt.hash(req.body.password,salt)
 
         const registerCompany = await new companyModel({
-            company_name : req.body.name,
+            companyName : req.body.companyName,
             email : req.body.email,
             password : hashPassword,
             logo : fileName.filename,
             address : req.body.address,
-            phone : req.body.phone
+            phone : req.body.phone,
+            isRegistered : req.body.isRegistered,
+            operatingCities : req.body.operatingCities,
+            manager_name : req.body.manager_name
         })
         if(!registerCompany) {
+            //DELETED UPLOADED IMAGE
+            
             return res.json({msg:"We couldn't resgiter you"})
+
         }
         await registerCompany.save()
-        res.json({msg:"Account Created"}).status(200)
+        res.status(201).json({msg:"Account Created"})
     }catch(err){
-        res.json({msg :"This Email is registed already"})
+        res.status(500).json({msg:err.message})
     }
 }
 
@@ -58,17 +65,18 @@ const addNewCompany = async (req,res)=>{
 const loginCompany = async(req,res)=>{
     //get user input
     const {email,password} = req.body
+    // CHECK IF COMPNAY EXISIT 
     const company = await companyModel.findOne({email : email})
 
     if (!company) {
         return res.status(404).json({ message: 'Company not found' });
     }
     //verify user password
-    const passwordMatch = await bcrypt.compare(password, company.password);
-    if (passwordMatch) {
-        return res.status(200).json({ message: 'Login successful' });
+    const passwordMatch = await bcrypt.compare(password, company?.password);
+    if (!passwordMatch) {
+        return res.status(401).json({ message: 'Incorrect password' });
     }
-    return res.status(401).json({ message: 'Incorrect password' });
+    return res.status(200).json({ message: 'success' });
 }
 
 

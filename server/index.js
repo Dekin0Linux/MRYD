@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'client')));
 //cors middleware
 
 
+// AETTING UP CORS
 app.use(cors(
     { 
     origin: ['http://localhost:5173','https://myryd.onrender.com'], // replace with your frontend URL
@@ -36,7 +37,6 @@ app.use(cors(
 
 //cookie parser
 app.use(cookieParser())
-
 
 
 //MONGODB CONNECTION

@@ -113,9 +113,9 @@ function PassengerForm({num,handlePassengerData}) {
             {/* handling luggage */}
 
             {/* end of luggage handle */}
-            
-
+                    
         </div>
+        <span className='text-red-500'>Note : If you have luggages kindly report to the station to get you luggages checked and booked</span>
     </div>
   )
 }

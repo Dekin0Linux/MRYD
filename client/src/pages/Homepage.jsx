@@ -9,7 +9,7 @@ function Homepage() {
   return (
     <div className=''>
         <Hero/>
-        <SearchInput/>
+        {/* <SearchInput/> */}
         <Features title='Our Features'/>
         <Explore/>
         <Popolar/>

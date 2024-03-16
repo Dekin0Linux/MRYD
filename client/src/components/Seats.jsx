@@ -52,6 +52,8 @@ function Seats() {
         setAvailSeat(totalSeats - bookedSeats.length)
     }
 
+    // Mary Menash
+
     useEffect(()=>{
         getBus(booking.busId)
         //IF OUR GLOBAL STATES HAVE EMPTY KEYS

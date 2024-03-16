@@ -104,7 +104,9 @@ function PassengerDetails() {
     <div className='container mx-auto'>
       <div className='my-5 lg:flex items-start'>
         {/* PRICE BAR  */}
-        <PriceBar booking={booking} userSearch={search} cost={luggageCost}/>
+        
+          <PriceBar booking={booking} userSearch={search} cost={luggageCost}/>
+        
 
         <div>
           <p className='text-center my-5 font-bold text-xl'>Passenger details</p>
@@ -115,10 +117,10 @@ function PassengerDetails() {
               renderForm() //user form fields
             }
             
-            <button type='submit' className='bg-green-400 w-full md:w-60 py-4 rounded-lg text-white font-semibold'>Continue</button>
+            <button type='submit' className='bg-blue-400 w-full md:w-60 py-4 rounded-lg text-white font-semibold'>Continue</button>
           </form>
-
         </div>
+
       </div>            
     </div>
   )

@@ -45,30 +45,53 @@ const createNewUser = async (req,res)=>{
         await user.save().then((doc)=>{
             const userToken = token(doc._id) //setting jwt with users token id
             res.cookie('login', userToken, {httpOnly:true}) //setting cookie
-            res.json(doc).status(200) 
+            res.status(201).json(doc)
         })
     }catch(err){
-        res.status(404).json({msg:'User Exist Already'})
+        res.status(500).json({msg:err})
     }
 }
 
 
 //LOGGING USER IN
 const loginUser = async(req,res)=>{
-    //get use input
-        const {email,password} = req.body
+    const {email,password} = req.body
+    try{
         const user = await userModel.findOne({email:email})
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        await bcrypt.compare(password, user.password,(err,result)=>{
+        bcrypt.compare(password, user.password,(err,result)=>{
             if(err || !result){
-                return res.send('Incorrect Password').status(401);
+                return res.status(401).send('Incorrect Password');
             }
             const userToken = token(user._id) //setting jwt token id
             res.cookie('login',userToken,{httpOnly:true}) //, maxAge: 3*24*60*60 //,sameSite: 'none',secure: true
             return res.status(200).json(user);
         });
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+}
+
+/**
+ * 
+ * @param {email} req 
+ * @param {send OTP to clients email} 
+ * @returns 
+ */
+
+const sendResetOTP = async(req,res)=>{
+    const {email} = req.body
+    try{
+        const emailExists = await userModel.findOne({email});
+        if(!emailExists) return res.status(401).json({msg:'Invalid email'});
+        // IF EMAIL EXIST SEND OTP TO THE CLIENT'S EMAIL
+        // API TO SEND OTP 
+
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
 }
 
 
@@ -126,7 +149,7 @@ const deleteUser = async(req,res)=>{
 //LOGGING OUT USER
 const logOut = (req,res)=>{
     res.clearCookie('login',{httpOnly:true,sameSite: 'none',secure: true,maxAge:1})
-    res.json({msg:"Logged out successful"})
+    return res.json({msg:"Logged out successful"})
 }
 
 
