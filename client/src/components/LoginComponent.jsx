@@ -7,6 +7,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import {useDispatch,useSelector} from 'react-redux'
 import { addToCart } from '../states/cart/cartReducer'
+import { BASE_URL } from '../apiUrl'
 
 function LoginComponent() {
     const [error,setError] = useState(null)
@@ -36,7 +37,7 @@ function LoginComponent() {
                 email : v.email,
                 password : v.password
             }
-            await axios.post('https://myrydgh.onrender.com/user/login', data ,
+            await axios.post(`${BASE_URL}/user/login`, data ,
             {withCredentials: true,},
             // {headers:{Authorization: `Bearer ${token}`}}
             )

@@ -9,6 +9,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from '../apiUrl'
 
 
 //SEAT INFORMATION COMPOENENT
@@ -45,7 +46,7 @@ function Seats() {
 
     //getting bus by id from database
     const getBus = async(id) => {
-        let busResponse = await axios.get(`https://myrydgh.onrender.com/bus/${id}`)
+        let busResponse = await axios.get(`${BASE_URL}/bus/${id}`)
         setBusData(busResponse.data)
         setAvailSeat(busResponse.data.available_seats)
         setBookedSeats(busResponse.data.booked_seats)
@@ -130,7 +131,7 @@ function Seats() {
             seat : seatArray,
             currentSeat : total - seatArray.length
         }
-        await axios.patch(`https://myrydgh.onrender.com/bus/updateSeats/${busData._id}`,seatUpdate)
+        await axios.patch(`${BASE_URL}/bus/updateSeats/${busData._id}`,seatUpdate)
         .then(resp=>(resp.data))
         .catch(err=>(err))
     }
@@ -152,7 +153,7 @@ function Seats() {
 
         localStorage.setItem('bookingID',JSON.stringify(bookingData.booking_number))
 
-        await axios.post(`https://myrydgh.onrender.com/booking`,bookingData)
+        await axios.post(`${BASE_URL}/booking`,bookingData)
             .then(resp=>{
                 console.log('booked')
                 
@@ -169,7 +170,7 @@ function Seats() {
             refNumber : response.reference,
             date : new Date()
         }
-        await axios.post(`https://myrydgh.onrender.com/payment`, data)
+        await axios.post(`${BASE_URL}/payment`, data)
         .then(resp=>(resp.data))
         .catch(err=>(err))
     }

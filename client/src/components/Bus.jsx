@@ -4,6 +4,7 @@ import {MdOutlineAirlineSeatReclineExtra} from 'react-icons/md'
 import {useDispatch,useSelector} from 'react-redux'
 import { addToCart } from '../states/cart/cartReducer'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../apiUrl'
 
 function Bus({bus,index}) {
     const booking = useSelector(state=>state.booking.book)
@@ -38,7 +39,7 @@ function Bus({bus,index}) {
         <div className='flex-1 '>
             <div className='md:flex gap-5'>
                 <div className='w-32'>
-                    <img src={`https://myrydgh.onrender.com/images/${bus.bus_name.logo}`} alt={bus.id} className='w-full'/>
+                    <img src={`${BASE_URL}/images/${bus.bus_name.logo}`} alt={bus.id} className='w-full'/>
                 </div>
                 <div >
                     <p className='font-bold text-2xl text-blue-600 mb-5'>{bus.bus_name ? bus.bus_name.company_name : ''} | {bus.station_name}</p>

@@ -6,6 +6,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Loading from '../components/Loading'
+import { BASE_URL } from '../apiUrl'
 
 const MySwal = withReactContent(Swal)
 
@@ -19,7 +20,7 @@ function Buses() {
 
   //fucntion to run out search 
   const userSearch = async ()=> {
-      await axios.get('https://myrydgh.onrender.com/bus/search',
+      await axios.get(`${BASE_URL}/bus/search`,
         {params:{
             depature : search.from,
             arrival : search.to,

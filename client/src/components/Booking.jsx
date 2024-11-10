@@ -6,6 +6,7 @@ import axios from 'axios'
 import Loading from './Loading'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { BASE_URL } from '../apiUrl'
 
 const MySwal = withReactContent(Swal)
 
@@ -19,7 +20,7 @@ function Booking() {
     const handleTicketSubmit= async(e)=>{
         e.preventDefault()
         setLoading(true)
-        await axios.post('https://myrydgh.onrender.com/booking/book',{pin:ticketId})
+        await axios.post(`${BASE_URL}/booking/book`,{pin:ticketId})
         .then((resp)=>{
             if(ticketId == resp.data[0].booking_number){
                 setTicket(resp.data)

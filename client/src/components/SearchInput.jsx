@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import Loading from './Loading';
 import Select from 'react-select';
+import { BASE_URL } from '../apiUrl';
 
 function SearchInput() {
   const [fromLocation, setFromLocation] = useState([])
@@ -22,7 +23,7 @@ function SearchInput() {
   const navigate = useNavigate()
 
   const getLocations = async () => {
-    await axios.get('https://myrydgh.onrender.com/bus')
+    await axios.get(`${BASE_URL}/bus`)
       .then(resp => {
         if (resp.status == 200) {
           let fromStations = (resp.data.map(station => station["depature_loc"]))
@@ -97,7 +98,7 @@ function SearchInput() {
   return (
     <div id='searchBox' className=' backdrop-blur-sm shadow-2xl shadow-blue-100  bg-white/80 container mx-auto p-5 rounded-lg  z-50'>
       <ToastContainer />
-      <form className='grid lg:grid-cols-5 md:grid-cols-2 lg:gap-10 md:gap-6 gap-4 grid-cols-1' onSubmit={formik.handleSubmit} >
+      <form className='grid lg:grid-cols-5 md:grid-cols-2 lg:gap-5 md:gap-6 gap-4 grid-cols-1' onSubmit={formik.handleSubmit} >
 
         <div className='w-auto'>
 
